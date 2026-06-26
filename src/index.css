@@ -1,0 +1,109 @@
+@import "tailwindcss";
+
+/* ============================================================
+   DESIGN TOKENS
+   Editorial / Swiss / Brutalist — cream, black, dark red.
+   ============================================================ */
+@theme {
+  --color-cream: #f3eee3;
+  --color-cream-dim: #ebe4d4;
+  --color-ink: #15130f;
+  --color-ink-soft: #4a463e;
+  --color-red: #7a1f1f;
+  --color-red-bright: #9c2b2b;
+  --color-line: #15130f;
+
+  --font-display: "Instrument Serif", Georgia, serif;
+  --font-sans: "Space Grotesk", "Segoe UI", sans-serif;
+
+  --container-page: 1440px;
+}
+
+/* ============================================================
+   BASE
+   Wrapped in @layer base so Tailwind utility classes (which live
+   in @layer utilities) always win the cascade over these resets,
+   regardless of selector specificity.
+   ============================================================ */
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    background-color: var(--color-cream);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+  }
+
+  #root {
+    position: relative;
+    isolation: isolate;
+  }
+
+  ::selection {
+    background: var(--color-red);
+    color: var(--color-cream);
+  }
+
+  a {
+    color: inherit;
+  }
+
+  button {
+    font-family: inherit;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+}
+
+/* ============================================================
+   PAPER GRAIN — subtle, fixed, non-interactive
+   ============================================================ */
+.grain-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  pointer-events: none;
+  opacity: 0.05;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+  background-size: 180px 180px;
+}
+
+/* ============================================================
+   SHARED UTILITY CLASSES
+   ============================================================ */
+.text-display {
+  font-family: var(--font-display);
+}
+
+.rule {
+  border-color: var(--color-line);
+}
+
+.eyebrow {
+  font-family: var(--font-sans);
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
