@@ -1,16 +1,29 @@
 import { motion } from 'framer-motion'
-import type { Feature } from '../../data/projects'
+import type { Feature } from '../../types/content'
 import { cn } from '../../lib/utils'
 
 /**
- * Reuses the Hero's bordered 4-up strip device. The "icon" is a
- * single hairline cross mark rather than an icon library — keeps
- * the bundle free of generic icon sets and matches the editorial,
- * typography-only restraint the brief asked for.
+ * The site's shared bordered-strip grid device (first used in the
+ * Hero's principles strip). The "icon" is a single hairline cross
+ * mark rather than an icon library — keeps the bundle free of
+ * generic icon sets and matches the editorial, typography-only
+ * restraint used everywhere else. `cols` controls the desktop
+ * column count (3 or 4) so the divider logic stays correct.
  */
-export function FeatureGrid({ features }: { features: Feature[] }) {
+export function FeatureGrid({
+  features,
+  cols = 4,
+}: {
+  features: Feature[]
+  cols?: 3 | 4
+}) {
   return (
-    <div className="grid grid-cols-1 border-t-2 border-ink sm:grid-cols-2 lg:grid-cols-4">
+    <div
+      className={cn(
+        'grid grid-cols-1 border-t-2 border-ink sm:grid-cols-2',
+        cols === 3 ? 'lg:grid-cols-3' : 'lg:grid-cols-4',
+      )}
+    >
       {features.map((feature, i) => (
         <motion.div
           key={feature.title}
@@ -21,7 +34,7 @@ export function FeatureGrid({ features }: { features: Feature[] }) {
           className={cn(
             'flex flex-col gap-3 border-ink p-7',
             i % 2 === 0 && 'sm:border-r-2',
-            i % 4 !== 3 && 'lg:border-r-2',
+            i % cols !== cols - 1 && 'lg:border-r-2',
           )}
         >
           <svg width="14" height="14" viewBox="0 0 14 14" aria-hidden="true" className="text-red">

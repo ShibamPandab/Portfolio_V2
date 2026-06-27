@@ -7,7 +7,7 @@ import { ChallengeBlock } from './ChallengeBlock'
 import { SolutionBlock } from './SolutionBlock'
 import { DesignDecisionList } from './DesignDecisionList'
 import { TechnologyList } from './TechnologyList'
-import { FeatureGrid } from './FeatureGrid'
+import { FeatureGrid } from '../ui/FeatureGrid'
 import { FAQAccordion } from '../ui/FAQAccordion'
 import { EditorialCTA } from './EditorialCTA'
 

@@ -1,7 +1,6 @@
-import type { FAQ } from '../types/content'
+import type { FAQ, Feature } from '../types/content'
 
-export type Feature = { title: string; desc: string }
-export type { FAQ }
+export type { FAQ, Feature }
 
 export type Project = {
   /** URL slug — the project lives at /projects/{slug} */
