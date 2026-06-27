@@ -1,21 +1,14 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { Container } from '../ui/Container'
+import { NAV_LINKS } from '../../constants/nav'
 import { cn } from '../../lib/utils'
-
-const LINKS = [
-  { label: 'About', href: '/#about' },
-  { label: 'Work', href: '/#work' },
-  { label: 'Projects', href: '/projects' },
-  { label: 'Services', href: '/#services' },
-  { label: 'Workflow', href: '/#workflow' },
-  { label: 'Contact', href: '/#contact' },
-]
 
 export function Navigation() {
   const [scrolled, setScrolled] = useState(false)
   const [open, setOpen] = useState(false)
+  const { pathname } = useLocation()
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 8)
@@ -24,11 +17,15 @@ export function Navigation() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
+  useEffect(() => {
+    setOpen(false)
+  }, [pathname])
+
   return (
     <header
       className={cn(
         'fixed inset-x-0 top-0 z-50 border-b-2 transition-colors duration-300',
-        scrolled ? 'border-ink bg-cream' : 'border-transparent bg-transparent',
+        scrolled || pathname !== '/' ? 'border-ink bg-cream' : 'border-transparent bg-transparent',
       )}
     >
       <Container className="flex h-20 items-center justify-between">
@@ -37,19 +34,26 @@ export function Navigation() {
         </Link>
 
         <nav className="hidden items-center gap-9 lg:flex">
-          {LINKS.map((link) => (
-            <Link
-              key={link.href}
-              to={link.href}
-              className="eyebrow text-ink-soft transition-colors duration-300 hover:text-red"
-            >
-              {link.label}
-            </Link>
-          ))}
+          {NAV_LINKS.map((link) => {
+            const isActive = pathname === link.to || pathname.startsWith(`${link.to}/`)
+            return (
+              <Link
+                key={link.to}
+                to={link.to}
+                aria-current={isActive ? 'page' : undefined}
+                className={cn(
+                  'eyebrow transition-colors duration-300 hover:text-red',
+                  isActive ? 'text-red' : 'text-ink-soft',
+                )}
+              >
+                {link.label}
+              </Link>
+            )
+          })}
         </nav>
 
         <Link
-          to="/#contact"
+          to="/contact"
           className="hidden border-2 border-ink px-5 py-2.5 eyebrow transition-colors duration-300 hover:bg-ink hover:text-cream lg:inline-block"
         >
           Start a Project
@@ -87,10 +91,10 @@ export function Navigation() {
             className="overflow-hidden border-t-2 border-ink bg-cream lg:hidden"
           >
             <Container className="flex flex-col gap-6 py-8">
-              {LINKS.map((link) => (
+              {NAV_LINKS.map((link) => (
                 <Link
-                  key={link.href}
-                  to={link.href}
+                  key={link.to}
+                  to={link.to}
                   onClick={() => setOpen(false)}
                   className="font-display text-3xl italic"
                 >
@@ -98,7 +102,7 @@ export function Navigation() {
                 </Link>
               ))}
               <Link
-                to="/#contact"
+                to="/contact"
                 onClick={() => setOpen(false)}
                 className="eyebrow mt-2 inline-block w-fit border-2 border-ink px-5 py-3"
               >

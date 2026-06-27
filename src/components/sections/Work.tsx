@@ -37,17 +37,6 @@ export function Work() {
             </Button>
           </div>
         </Reveal>
-
-        <Reveal>
-          <div className="flex flex-col items-start gap-8 border-t-2 border-ink pt-12 md:flex-row md:items-center md:justify-between">
-            <p className="max-w-md font-display text-2xl italic md:text-3xl">
-              Let’s build the next one together.
-            </p>
-            <Button href="#contact" variant="primary">
-              Start a Project
-            </Button>
-          </div>
-        </Reveal>
       </Container>
     </section>
   )

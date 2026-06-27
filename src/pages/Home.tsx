@@ -1,29 +1,31 @@
 import { useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
 import { Hero } from '../components/sections/Hero'
+import { EditorialStatement } from '../components/sections/EditorialStatement'
 import { About } from '../components/sections/About'
 import { Work } from '../components/sections/Work'
+import { Philosophy } from '../components/sections/Philosophy'
+import { MiniProcess } from '../components/sections/MiniProcess'
+import { Availability } from '../components/sections/Availability'
+import { FinalCTA } from '../components/sections/FinalCTA'
+import { useScrollToHash } from '../hooks/useScrollToHash'
 
 export function Home() {
-  const { hash } = useLocation()
+  useScrollToHash()
 
   useEffect(() => {
     document.title = 'Shibam Pandab — Frontend Developer & Digital Experience Designer'
-
-    if (hash) {
-      const el = document.querySelector(hash)
-      if (el) {
-        // Wait a tick for layout/fonts to settle before measuring scroll position
-        requestAnimationFrame(() => el.scrollIntoView({ behavior: 'smooth' }))
-      }
-    }
-  }, [hash])
+  }, [])
 
   return (
     <>
       <Hero />
+      <EditorialStatement />
       <About />
       <Work />
+      <Philosophy />
+      <MiniProcess />
+      <Availability />
+      <FinalCTA />
     </>
   )
 }

@@ -4,7 +4,7 @@ import { Container } from '../components/ui/Container'
 import { ProjectSection } from '../components/work/ProjectSection'
 import { PROJECTS } from '../data/projects'
 
-export function ProjectCaseStudy() {
+export function ProjectDetails() {
   const { slug } = useParams<{ slug: string }>()
   const index = PROJECTS.findIndex((p) => p.slug === slug)
   const project = PROJECTS[index]

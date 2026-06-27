@@ -64,7 +64,7 @@ export function Hero() {
           <Button href="#work" variant="primary">
             View Case Studies
           </Button>
-          <Button href="#contact" variant="secondary">
+          <Button to="/contact" variant="secondary">
             Start a Project
           </Button>
         </motion.div>

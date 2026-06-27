@@ -1,21 +1,43 @@
-import { Route, Routes } from 'react-router-dom'
+import { Suspense, lazy, useEffect } from 'react'
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom'
 import { Navigation } from './components/layout/Navigation'
-import { Home } from './pages/Home'
-import { Projects } from './pages/Projects'
-import { ProjectCaseStudy } from './pages/ProjectCaseStudy'
+import { Footer } from './components/layout/Footer'
+
+// Route-level code splitting — each page ships only when visited.
+const Home = lazy(() => import('./pages/Home').then((m) => ({ default: m.Home })))
+const Projects = lazy(() => import('./pages/Projects').then((m) => ({ default: m.Projects })))
+const ProjectDetails = lazy(() =>
+  import('./pages/ProjectDetails').then((m) => ({ default: m.ProjectDetails })),
+)
+const Services = lazy(() => import('./pages/Services').then((m) => ({ default: m.Services })))
+const Process = lazy(() => import('./pages/Process').then((m) => ({ default: m.Process })))
+const Contact = lazy(() => import('./pages/Contact').then((m) => ({ default: m.Contact })))
 
 function App() {
+  const location = useLocation()
+
+  useEffect(() => {
+    if (!location.hash) window.scrollTo(0, 0)
+  }, [location.pathname, location.hash])
+
   return (
     <>
       <div className="grain-overlay" aria-hidden="true" />
       <Navigation />
       <main>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/projects" element={<Projects />} />
-          <Route path="/projects/:slug" element={<ProjectCaseStudy />} />
-        </Routes>
+        <Suspense fallback={null}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects" element={<Projects />} />
+            <Route path="/projects/:slug" element={<ProjectDetails />} />
+            <Route path="/services" element={<Services />} />
+            <Route path="/process" element={<Process />} />
+            <Route path="/contact" element={<Contact />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Suspense>
       </main>
+      <Footer />
     </>
   )
 }
