@@ -8,7 +8,7 @@ import { SolutionBlock } from './SolutionBlock'
 import { DesignDecisionList } from './DesignDecisionList'
 import { TechnologyList } from './TechnologyList'
 import { FeatureGrid } from './FeatureGrid'
-import { FAQAccordion } from './FAQAccordion'
+import { FAQAccordion } from '../ui/FAQAccordion'
 import { EditorialCTA } from './EditorialCTA'
 
 export function ProjectSection({ project, flip = false }: { project: Project; flip?: boolean }) {

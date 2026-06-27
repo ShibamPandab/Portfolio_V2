@@ -1,6 +1,6 @@
 import { useId, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
-import type { FAQ } from '../../data/projects'
+import type { FAQ } from '../../types/content'
 
 function FAQItem({ faq }: { faq: FAQ }) {
   const [open, setOpen] = useState(false)
