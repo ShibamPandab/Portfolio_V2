@@ -1,0 +1,44 @@
+import { Container } from '../ui/Container'
+import { Reveal } from '../ui/Reveal'
+import { Eyebrow } from '../ui/Eyebrow'
+import { ProjectFeature } from './ProjectFeature'
+import { Button } from '../ui/Button'
+import { PROJECTS } from '../../data/projects'
+
+export function Work() {
+  return (
+    <section id="work" aria-labelledby="work-heading" className="border-b-2 border-ink">
+      <h2 id="work-heading" className="sr-only">
+        Selected Work
+      </h2>
+
+      <Container className="py-28 md:py-40">
+        <Reveal>
+          <Eyebrow index="02" label="Selected Work" />
+          <p className="mt-8 max-w-2xl font-sans text-[7vw] leading-[1.05] font-medium tracking-tight md:text-[2.6rem] lg:text-[3rem]">
+            Three businesses. Three different problems. The same
+            approach: understand the business before touching the
+            design.
+          </p>
+        </Reveal>
+
+        <div className="mt-20 md:mt-28">
+          {PROJECTS.map((project, i) => (
+            <ProjectFeature key={project.index} project={project} flip={i % 2 === 1} />
+          ))}
+        </div>
+
+        <Reveal>
+          <div className="flex flex-col items-start gap-8 border-t-2 border-ink pt-12 md:flex-row md:items-center md:justify-between">
+            <p className="max-w-md font-display text-2xl italic md:text-3xl">
+              Let’s build the next one together.
+            </p>
+            <Button href="#contact" variant="primary">
+              Start a Project
+            </Button>
+          </div>
+        </Reveal>
+      </Container>
+    </section>
+  )
+}

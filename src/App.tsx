@@ -1,6 +1,7 @@
 import { Navigation } from './components/layout/Navigation'
 import { Hero } from './components/sections/Hero'
 import { About } from './components/sections/About'
+import { Work } from './components/sections/Work'
 
 function App() {
   return (
@@ -10,6 +11,7 @@ function App() {
       <main>
         <Hero />
         <About />
+        <Work />
       </main>
     </>
   )
