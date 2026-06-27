@@ -47,6 +47,22 @@ export const ADD_ONS: Service[] = [
   { title: 'Email Automation', desc: 'Automated follow-ups for enquiries or bookings.' },
 ]
 
+export const WORKING_TOGETHER: string[] = [
+  'Every project starts with a conversation, not a development sprint.',
+  'I take the time to understand the business, the audience, and the goal before any design begins.',
+  'Scope is defined together, so there are no surprises once work starts.',
+  'I work with a small number of projects at a time, by choice, so each one gets proper attention.',
+]
+
+export const AVAILABILITY_NOTE =
+  'I’m currently balancing university studies alongside freelance work, which means active projects are intentionally limited during busier academic periods. New enquiries are always welcome — if a project is a good fit, timelines are discussed honestly before anything begins. Quality always comes before quantity.'
+
+export const CURRENTLY_INTERESTED_IN: string[] = [
+  'Restaurant & Café Websites',
+  'Premium Brand Websites',
+  'Portfolio & Personal Brand Websites',
+]
+
 export const PRICING_PRINCIPLES: string[] = [
   'Every project is scoped individually — there are no fixed packages.',
   'Pricing depends on business goals, complexity, and timeline.',

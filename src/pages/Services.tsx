@@ -11,6 +11,9 @@ import {
   DELIVERABLES,
   INDUSTRIES,
   ADD_ONS,
+  WORKING_TOGETHER,
+  AVAILABILITY_NOTE,
+  CURRENTLY_INTERESTED_IN,
   PRICING_PRINCIPLES,
   SERVICES_FAQ,
 } from '../data/services'
@@ -104,11 +107,50 @@ export function Services() {
         </Container>
       </section>
 
-      {/* 06 — Pricing Philosophy */}
+      {/* 06 — Working Together */}
       <section className="border-b-2 border-ink">
         <Container className="py-20 md:py-28">
           <Reveal>
-            <Eyebrow index="05" label="Pricing Philosophy" />
+            <Eyebrow index="05" label="Working Together" />
+          </Reveal>
+          <div className="mt-10 flex flex-col gap-6">
+            {WORKING_TOGETHER.map((line, i) => (
+              <Reveal key={line} delay={i * 0.06}>
+                <p className="max-w-2xl font-display text-2xl italic leading-snug md:text-3xl">
+                  {line}
+                </p>
+              </Reveal>
+            ))}
+          </div>
+        </Container>
+      </section>
+
+      {/* 07 — Availability */}
+      <section className="border-b-2 border-ink">
+        <Container className="py-20 md:py-28">
+          <Reveal>
+            <Eyebrow index="06" label="Currently Accepting" />
+          </Reveal>
+          <Reveal delay={0.08}>
+            <p className="mt-8 max-w-2xl text-lg leading-relaxed text-ink-soft">
+              {AVAILABILITY_NOTE}
+            </p>
+          </Reveal>
+          <div className="mt-10 max-w-md">
+            <EditorialList
+              items={CURRENTLY_INTERESTED_IN.map((title) => ({ title }))}
+              marker="check"
+              compact
+            />
+          </div>
+        </Container>
+      </section>
+
+      {/* 08 — Pricing Philosophy */}
+      <section className="border-b-2 border-ink">
+        <Container className="py-20 md:py-28">
+          <Reveal>
+            <Eyebrow index="07" label="Pricing Philosophy" />
           </Reveal>
           <div className="mt-10 flex flex-col gap-6">
             {PRICING_PRINCIPLES.map((line, i) => (
@@ -122,7 +164,7 @@ export function Services() {
         </Container>
       </section>
 
-      {/* 07 — FAQ */}
+      {/* 09 — FAQ */}
       <section className="border-b-2 border-ink">
         <Container className="py-20 md:py-28">
           <Reveal>
@@ -134,7 +176,7 @@ export function Services() {
         </Container>
       </section>
 
-      {/* 08 — Final CTA */}
+      {/* 10 — Final CTA */}
       <section className="border-b-2 border-ink">
         <Container className="flex flex-col items-center gap-8 py-28 text-center md:py-40">
           <Reveal>
