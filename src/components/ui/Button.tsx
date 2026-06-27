@@ -10,6 +10,8 @@ type ButtonProps = {
   onClick?: () => void
   variant?: 'primary' | 'secondary'
   className?: string
+  /** Opens href in a new tab with safe rel attributes */
+  external?: boolean
 }
 
 export function Button({
@@ -19,6 +21,7 @@ export function Button({
   onClick,
   variant = 'primary',
   className,
+  external,
 }: ButtonProps) {
   const base =
     'group relative inline-flex items-center gap-2 font-sans text-sm font-medium tracking-wide uppercase transition-colors duration-300'
@@ -55,7 +58,11 @@ export function Button({
 
   if (href) {
     return (
-      <a href={href} className={cn(styles, className)}>
+      <a
+        href={href}
+        className={cn(styles, className)}
+        {...(external ? { target: '_blank', rel: 'noopener noreferrer' } : {})}
+      >
         {content}
       </a>
     )

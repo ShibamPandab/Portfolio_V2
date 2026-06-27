@@ -1,14 +1,15 @@
 import type { Project } from '../../data/projects'
 import { cn } from '../../lib/utils'
+import { Reveal } from '../ui/Reveal'
 import { ProjectHeader } from './ProjectHeader'
 import { ProjectImage } from './ProjectImage'
-import { ProjectContent } from './ProjectContent'
 import { ChallengeBlock } from './ChallengeBlock'
 import { SolutionBlock } from './SolutionBlock'
 import { DesignDecisionList } from './DesignDecisionList'
 import { TechnologyList } from './TechnologyList'
 import { FeatureGrid } from './FeatureGrid'
 import { FAQAccordion } from './FAQAccordion'
+import { EditorialCTA } from './EditorialCTA'
 
 export function ProjectSection({ project, flip = false }: { project: Project; flip?: boolean }) {
   return (
@@ -27,7 +28,9 @@ export function ProjectSection({ project, flip = false }: { project: Project; fl
             category={project.category}
             quote={project.quote}
           />
-          <ProjectContent description={project.description} liveHref={project.liveHref} />
+          <Reveal delay={0.12}>
+            <p className="max-w-md text-lg leading-relaxed text-ink-soft">{project.description}</p>
+          </Reveal>
         </div>
 
         <div
@@ -62,6 +65,11 @@ export function ProjectSection({ project, flip = false }: { project: Project; fl
         <div className="mt-6">
           <FAQAccordion faqs={project.faqs} />
         </div>
+      </div>
+
+      {/* Editorial CTA — the strongest conversion moment on the page */}
+      <div className="mt-20">
+        <EditorialCTA liveHref={project.liveHref} githubHref={project.githubHref} />
       </div>
     </article>
   )
