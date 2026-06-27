@@ -27,11 +27,7 @@ export function ProjectSection({ project, flip = false }: { project: Project; fl
             category={project.category}
             quote={project.quote}
           />
-          <ProjectContent
-            description={project.description}
-            liveHref={project.liveHref}
-            caseStudyHref={project.caseStudyHref}
-          />
+          <ProjectContent description={project.description} liveHref={project.liveHref} />
         </div>
 
         <div

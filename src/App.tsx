@@ -1,7 +1,8 @@
+import { Route, Routes } from 'react-router-dom'
 import { Navigation } from './components/layout/Navigation'
-import { Hero } from './components/sections/Hero'
-import { About } from './components/sections/About'
-import { Work } from './components/sections/Work'
+import { Home } from './pages/Home'
+import { Projects } from './pages/Projects'
+import { ProjectCaseStudy } from './pages/ProjectCaseStudy'
 
 function App() {
   return (
@@ -9,9 +10,11 @@ function App() {
       <div className="grain-overlay" aria-hidden="true" />
       <Navigation />
       <main>
-        <Hero />
-        <About />
-        <Work />
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/projects" element={<Projects />} />
+          <Route path="/projects/:slug" element={<ProjectCaseStudy />} />
+        </Routes>
       </main>
     </>
   )

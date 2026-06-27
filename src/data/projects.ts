@@ -2,6 +2,10 @@ export type Feature = { title: string; desc: string }
 export type FAQ = { q: string; a: string }
 
 export type Project = {
+  /** URL slug — the project lives at /projects/{slug} */
+  slug: string
+  /** Shown on the homepage as one of the strongest previews when true */
+  featured: boolean
   index: string
   name: string
   category: string
@@ -14,7 +18,6 @@ export type Project = {
   features: Feature[]
   faqs: FAQ[]
   liveHref?: string
-  caseStudyHref?: string
 }
 
 /**
@@ -23,9 +26,16 @@ export type Project = {
  * how projects like this are generally approached rather than
  * claiming specifics this project hasn't confirmed. Features are
  * a draft based on the brief — confirm accuracy before launch.
+ *
+ * To add a new project: append an entry here with a unique slug.
+ * It automatically appears on /projects and gets its own case study
+ * page at /projects/{slug}. Set featured: true to also surface it
+ * as one of the homepage previews (keep this to the 3 strongest).
  */
 export const PROJECTS: Project[] = [
   {
+    slug: 'bong-pizza',
+    featured: true,
     index: '01',
     name: 'Bong Pizza',
     category: 'Restaurant — Food & Beverage',
@@ -68,6 +78,8 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    slug: 'jewellery-store',
+    featured: true,
     index: '02',
     name: 'Jewellery Store',
     category: 'Jewellery — Luxury Retail',
@@ -110,6 +122,8 @@ export const PROJECTS: Project[] = [
     ],
   },
   {
+    slug: 'cafe-website',
+    featured: true,
     index: '03',
     name: 'Cafe Website',
     category: 'Hospitality — Cafe',

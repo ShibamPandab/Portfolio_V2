@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { Container } from '../ui/Container'
 import { cn } from '../../lib/utils'
 
 const LINKS = [
-  { label: 'About', href: '#about' },
-  { label: 'Work', href: '#work' },
-  { label: 'Services', href: '#services' },
-  { label: 'Workflow', href: '#workflow' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'About', href: '/#about' },
+  { label: 'Work', href: '/#work' },
+  { label: 'Projects', href: '/projects' },
+  { label: 'Services', href: '/#services' },
+  { label: 'Workflow', href: '/#workflow' },
+  { label: 'Contact', href: '/#contact' },
 ]
 
 export function Navigation() {
@@ -30,28 +32,28 @@ export function Navigation() {
       )}
     >
       <Container className="flex h-20 items-center justify-between">
-        <a href="#top" className="font-display text-2xl italic tracking-tight">
+        <Link to="/" className="font-display text-2xl italic tracking-tight">
           Shibam Pandab
-        </a>
+        </Link>
 
         <nav className="hidden items-center gap-9 lg:flex">
           {LINKS.map((link) => (
-            <a
+            <Link
               key={link.href}
-              href={link.href}
+              to={link.href}
               className="eyebrow text-ink-soft transition-colors duration-300 hover:text-red"
             >
               {link.label}
-            </a>
+            </Link>
           ))}
         </nav>
 
-        <a
-          href="#contact"
+        <Link
+          to="/#contact"
           className="hidden border-2 border-ink px-5 py-2.5 eyebrow transition-colors duration-300 hover:bg-ink hover:text-cream lg:inline-block"
         >
           Start a Project
-        </a>
+        </Link>
 
         <button
           type="button"
@@ -86,22 +88,22 @@ export function Navigation() {
           >
             <Container className="flex flex-col gap-6 py-8">
               {LINKS.map((link) => (
-                <a
+                <Link
                   key={link.href}
-                  href={link.href}
+                  to={link.href}
                   onClick={() => setOpen(false)}
                   className="font-display text-3xl italic"
                 >
                   {link.label}
-                </a>
+                </Link>
               ))}
-              <a
-                href="#contact"
+              <Link
+                to="/#contact"
                 onClick={() => setOpen(false)}
                 className="eyebrow mt-2 inline-block w-fit border-2 border-ink px-5 py-3"
               >
                 Start a Project
-              </a>
+              </Link>
             </Container>
           </motion.div>
         )}

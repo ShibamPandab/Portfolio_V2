@@ -1,9 +1,12 @@
 import type { ReactNode } from 'react'
+import { Link } from 'react-router-dom'
 import { cn } from '../../lib/utils'
 
 type ButtonProps = {
   children: ReactNode
   href?: string
+  /** Internal route — renders a react-router Link for SPA navigation instead of a full page load */
+  to?: string
   onClick?: () => void
   variant?: 'primary' | 'secondary'
   className?: string
@@ -12,6 +15,7 @@ type ButtonProps = {
 export function Button({
   children,
   href,
+  to,
   onClick,
   variant = 'primary',
   className,
@@ -40,6 +44,14 @@ export function Button({
       )}
     </>
   )
+
+  if (to) {
+    return (
+      <Link to={to} className={cn(styles, className)}>
+        {content}
+      </Link>
+    )
+  }
 
   if (href) {
     return (

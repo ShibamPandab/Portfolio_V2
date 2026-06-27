@@ -1,11 +1,13 @@
 import { Container } from '../ui/Container'
 import { Reveal } from '../ui/Reveal'
 import { Eyebrow } from '../ui/Eyebrow'
-import { ProjectSection } from '../work/ProjectSection'
+import { ProjectPreview } from '../work/ProjectPreview'
 import { Button } from '../ui/Button'
 import { PROJECTS } from '../../data/projects'
 
 export function Work() {
+  const featured = PROJECTS.filter((p) => p.featured)
+
   return (
     <section id="work" aria-labelledby="work-heading" className="border-b-2 border-ink">
       <h2 id="work-heading" className="sr-only">
@@ -23,10 +25,18 @@ export function Work() {
         </Reveal>
 
         <div className="mt-20 md:mt-28">
-          {PROJECTS.map((project, i) => (
-            <ProjectSection key={project.index} project={project} flip={i % 2 === 1} />
+          {featured.map((project, i) => (
+            <ProjectPreview key={project.slug} project={project} flip={i % 2 === 1} />
           ))}
         </div>
+
+        <Reveal>
+          <div className="flex justify-center border-t-2 border-ink py-14">
+            <Button to="/projects" variant="secondary">
+              View All Projects
+            </Button>
+          </div>
+        </Reveal>
 
         <Reveal>
           <div className="flex flex-col items-start gap-8 border-t-2 border-ink pt-12 md:flex-row md:items-center md:justify-between">
