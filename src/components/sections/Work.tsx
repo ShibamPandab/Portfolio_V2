@@ -1,7 +1,7 @@
 import { Container } from '../ui/Container'
 import { Reveal } from '../ui/Reveal'
 import { Eyebrow } from '../ui/Eyebrow'
-import { ProjectFeature } from './ProjectFeature'
+import { ProjectSection } from '../work/ProjectSection'
 import { Button } from '../ui/Button'
 import { PROJECTS } from '../../data/projects'
 
@@ -24,7 +24,7 @@ export function Work() {
 
         <div className="mt-20 md:mt-28">
           {PROJECTS.map((project, i) => (
-            <ProjectFeature key={project.index} project={project} flip={i % 2 === 1} />
+            <ProjectSection key={project.index} project={project} flip={i % 2 === 1} />
           ))}
         </div>
 
