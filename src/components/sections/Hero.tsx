@@ -29,7 +29,7 @@ const PRINCIPLES = [
 
 export function Hero() {
   return (
-    <section id="top" className="border-b-2 border-ink pt-20">
+    <section id="top" className="relative border-b-2 border-ink pt-20">
       <Container className="relative flex min-h-[78vh] flex-col gap-10 py-16 md:py-24">
         <Eyebrow index="00" label="Frontend Developer / Digital Experience Designer" />
 

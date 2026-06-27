@@ -15,7 +15,7 @@ export function AnimatedText({
   text: string
   className?: string
   delay?: number
-  as?: 'span' | 'h1' | 'h2' | 'p'
+  as?: 'span' | 'h1' | 'h2' | 'h3' | 'p'
 }) {
   const words = text.split(' ')
 

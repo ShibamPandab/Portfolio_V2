@@ -1,5 +1,6 @@
 import { Navigation } from './components/layout/Navigation'
 import { Hero } from './components/sections/Hero'
+import { About } from './components/sections/About'
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
       <Navigation />
       <main>
         <Hero />
+        <About />
       </main>
     </>
   )
