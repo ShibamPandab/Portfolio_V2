@@ -1,0 +1,432 @@
+
+<style>
+* { box-sizing: border-box; }
+body { margin: 0; }
+.doc { font-family: var(--font-sans); color: var(--text-primary); max-width: 680px; }
+.doc-header { border-bottom: 0.5px solid var(--border-strong); padding-bottom: 20px; margin-bottom: 0; }
+.doc-title { font-size: 20px; font-weight: 500; margin: 0 0 4px; }
+.doc-meta { font-size: 12px; color: var(--text-muted); margin: 0; }
+.chapter { border-top: 0.5px solid var(--border); margin-top: 0; }
+.chapter-header { display: flex; align-items: baseline; gap: 12px; padding: 20px 0 14px; cursor: pointer; user-select: none; }
+.chapter-num { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; color: var(--text-muted); min-width: 24px; }
+.chapter-title { font-size: 15px; font-weight: 500; flex: 1; }
+.chapter-badge { font-size: 11px; padding: 2px 8px; border-radius: 4px; font-weight: 500; }
+.badge-critical { background: #FCEBEB; color: #A32D2D; }
+.badge-high { background: #FAEEDA; color: #854F0B; }
+.badge-medium { background: #EAF3DE; color: #3B6D11; }
+.badge-info { background: var(--bg-accent); color: var(--text-accent); }
+.chapter-body { padding-bottom: 24px; display: none; }
+.chapter-body.open { display: block; }
+.toggle-icon { font-size: 16px; color: var(--text-muted); transition: transform 0.2s; }
+.chapter-header.active .toggle-icon { transform: rotate(90deg); }
+
+.fix-block { background: var(--surface-1); border-radius: var(--radius); padding: 14px 16px; margin: 10px 0; border-left: 2px solid var(--border); }
+.fix-block.critical { border-left-color: #E24B4A; }
+.fix-block.high { border-left-color: #BA7517; }
+.fix-block.done { border-left-color: #1D9E75; }
+.fix-label { font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 6px; color: var(--text-muted); }
+.fix-block.critical .fix-label { color: #A32D2D; }
+.fix-block.high .fix-label { color: #854F0B; }
+.fix-block.done .fix-label { color: #0F6E56; }
+.fix-text { font-size: 13px; color: var(--text-secondary); line-height: 1.65; margin: 0 0 8px; }
+.fix-text strong { color: var(--text-primary); font-weight: 500; }
+.copy-compare { margin: 10px 0 0; display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.copy-before, .copy-after { padding: 10px 12px; border-radius: var(--radius); font-size: 12px; line-height: 1.6; }
+.copy-before { background: #FCEBEB; color: #711F1F; border: 0.5px solid #F09595; }
+.copy-after { background: #EAF3DE; color: #27500A; border: 0.5px solid #97C459; }
+.copy-label { font-size: 10px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; opacity: 0.7; }
+.copy-text { font-style: italic; }
+
+.metric-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; border-bottom: 0.5px solid var(--border); font-size: 13px; }
+.metric-row:last-child { border-bottom: none; }
+.metric-name { flex: 1; color: var(--text-secondary); }
+.metric-before { color: #A32D2D; font-weight: 500; min-width: 100px; }
+.metric-after { color: #3B6D11; font-weight: 500; min-width: 100px; }
+.metric-arrow { color: var(--text-muted); font-size: 12px; }
+
+.summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 14px; }
+.summary-card { background: var(--surface-1); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 14px 16px; }
+.summary-card-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 6px; }
+.summary-card-val { font-size: 22px; font-weight: 500; color: var(--text-primary); }
+.summary-card-sub { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+
+.version-rec { background: var(--surface-2); border: 0.5px solid var(--border-strong); border-radius: 12px; padding: 18px 20px; margin-top: 16px; }
+.version-rec-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 10px; }
+.version-title { font-size: 16px; font-weight: 500; margin-bottom: 6px; }
+.version-desc { font-size: 13px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+
+.tag { display: inline-block; font-size: 10px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; padding: 2px 6px; border-radius: 3px; margin: 2px 2px 2px 0; background: var(--surface-1); border: 0.5px solid var(--border); color: var(--text-secondary); }
+.remaining { padding: 10px 14px; border-radius: var(--radius); background: var(--surface-1); border: 0.5px solid var(--border); margin: 8px 0; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+.remaining strong { color: var(--text-primary); font-weight: 500; }
+</style>
+
+<div class="doc">
+  <div class="doc-header">
+    <h1 class="doc-title">Portfolio Refinement — Full Improvement Plan</h1>
+    <p class="doc-meta">shibam-portfolio-omega.vercel.app &nbsp;·&nbsp; Principal Designer Review &nbsp;·&nbsp; Vercel / Linear / Stripe / Apple lens &nbsp;·&nbsp; June 2026</p>
+  </div>
+
+  <!-- CHAPTER 1: CTA HIERARCHY -->
+  <div class="chapter">
+    <div class="chapter-header" onclick="toggle(this)">
+      <span class="chapter-num">01</span>
+      <span class="chapter-title">CTA Hierarchy</span>
+      <span class="chapter-badge badge-critical">Critical</span>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="chapter-body">
+      <div class="fix-block critical">
+        <div class="fix-label">Issue · 4 competing CTAs in the hero alone</div>
+        <p class="fix-text">The hero contains: <strong>"VIEW CASE STUDIES"</strong> (black button), <strong>"START A PROJECT →"</strong> (ghost link), and the nav has <strong>"START A PROJECT"</strong> (bordered button). The visitor's eye has no hierarchy to follow. Two actions equal zero decisions.</p>
+        <div class="copy-compare">
+          <div class="copy-before"><div class="copy-label">Now — 3 competing actions</div><div class="copy-text">VIEW CASE STUDIES &nbsp;·&nbsp; START A PROJECT → &nbsp;·&nbsp; START A PROJECT (nav)</div></div>
+          <div class="copy-after"><div class="copy-label">After — clear hierarchy</div><div class="copy-text">VIEW MY WORK (primary black button) &nbsp;·&nbsp; Let's Talk → (nav, secondary only)</div></div>
+        </div>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Fix · Hero CTA rule</div>
+        <p class="fix-text">One primary action per section. In the hero, that action is <strong>showing the work</strong> — not starting a project. The visitor hasn't seen anything yet. "Start a project" at this moment is asking for commitment before delivering proof. Remove the ghost "START A PROJECT →" link from the hero entirely. The nav CTA handles hire intent. The hero CTA handles discovery.</p>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Fix · Section 6 (Availability) has weak CTA</div>
+        <p class="fix-text">"CHECK AVAILABILITY" is fine in concept but the section copy — <em>"New projects are taken on a limited basis, by enquiry"</em> — creates friction before the action. It reads like a waitlist, not a welcome. The CTA should invite, not gate.</p>
+        <div class="copy-compare">
+          <div class="copy-before"><div class="copy-label">Now</div><div class="copy-text">New projects are taken on a limited basis, by enquiry. CHECK AVAILABILITY</div></div>
+          <div class="copy-after"><div class="copy-label">After</div><div class="copy-text">Currently taking on new projects. Let's talk about yours. START A CONVERSATION →</div></div>
+        </div>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Fix · Process section CTA is buried</div>
+        <p class="fix-text">"SEE THE FULL PROCESS →" is a valid CTA but the section copy around it ("AI-accelerated iteration, hand-finished detail") undercuts the craft message you're selling. Fix the copy first, the CTA will land better.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 2: COPYWRITING -->
+  <div class="chapter">
+    <div class="chapter-header" onclick="toggle(this)">
+      <span class="chapter-num">02</span>
+      <span class="chapter-title">Copywriting</span>
+      <span class="chapter-badge badge-critical">Critical</span>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="chapter-body">
+      <div class="fix-block critical">
+        <div class="fix-label">Issue · Hero subline buries the lead and contains a trust-killer</div>
+        <p class="fix-text"><em>"built fast with an AI-accelerated workflow, finished by hand"</em> — "AI-accelerated" in a premium client's subline is a red flag. Premium clients hear: "a robot built part of this." The strongest claim ("finished by hand") is buried after an em-dash at the end of a three-part sentence.</p>
+        <div class="copy-compare">
+          <div class="copy-before"><div class="copy-label">Now</div><div class="copy-text">Premium, design-led websites for restaurants, boutiques, and brands that refuse to look ordinary online — built fast with an AI-accelerated workflow, finished by hand.</div></div>
+          <div class="copy-after"><div class="copy-label">After</div><div class="copy-text">Custom websites for restaurants, boutiques, and independent brands — designed from first principles, delivered in weeks, not months.</div></div>
+        </div>
+      </div>
+      <div class="fix-block critical">
+        <div class="fix-label">Issue · Features strip uses industry clichés</div>
+        <p class="fix-text">"Design-Led", "Built to Convert", "AI-Accelerated", "Production-Ready" — every Framer agency and Webflow freelancer uses 3 of these 4 phrases. "AI-Accelerated" actively harms your premium positioning. "Production-Ready" is the minimum bar for any professional, not a differentiator.</p>
+        <div class="copy-compare">
+          <div class="copy-before"><div class="copy-label">Now</div><div class="copy-text">01 Design-Led · 02 Built to Convert · 03 AI-Accelerated · 04 Production-Ready</div></div>
+          <div class="copy-after"><div class="copy-label">After</div><div class="copy-text">01 Business-first · 02 Converts browsers · 03 Delivered in weeks · 04 Maintained for years</div></div>
+        </div>
+      </div>
+      <div class="fix-block critical">
+        <div class="fix-label">Issue · Stats section makes weak claims</div>
+        <p class="fix-text"><strong>3</strong> business categories, <strong>0</strong> templates, <strong>100%</strong> responsive. "0 templates" is a negative phrased as a positive. "100% responsive" is table stakes since 2012. "3 categories" is a thin number that limits rather than impresses. These are numbers a junior developer would list.</p>
+        <div class="copy-compare">
+          <div class="copy-before"><div class="copy-label">Now</div><div class="copy-text">3 — categories · 0 — templates used · 100% — responsive</div></div>
+          <div class="copy-after"><div class="copy-label">After (use real numbers from your 11 projects)</div><div class="copy-text">11 — projects shipped · 3 — industries · 100 — Lighthouse score, every build</div></div>
+        </div>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Issue · Process step 02 copy contradicts the brand message</div>
+        <p class="fix-text">Step 02 of your process says "AI-accelerated iteration, hand-finished detail." This is the third time "AI-accelerated" appears on the homepage (subline, features strip, process). Repetition of a phrase you're also trying to downplay makes it feel defensive rather than confident.</p>
+        <div class="copy-compare">
+          <div class="copy-before"><div class="copy-label">Now</div><div class="copy-text">Design & Build — AI-accelerated iteration, hand-finished detail.</div></div>
+          <div class="copy-after"><div class="copy-label">After</div><div class="copy-text">Design & Build — Fast iteration, precise execution. Every decision justified before it's shipped.</div></div>
+        </div>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Issue · About section has a semantic contradiction</div>
+        <p class="fix-text">The "Why This Exists" section (section 01) says: <em>"Most businesses don't need a website. They need a reason to be remembered."</em> That's a strong opener. Then the About section (section 02) opens with: <em>"Good design isn't decoration. It's the difference between a business that gets remembered and one that gets scrolled past."</em> The word <strong>"remembered"</strong> appears in both consecutive sections. This doubles the trick and halves the impact of each.</p>
+        <div class="copy-compare">
+          <div class="copy-before"><div class="copy-label">Section 02 opener — now</div><div class="copy-text">Good design isn't decoration. It's the difference between a business that gets remembered and one that gets scrolled past.</div></div>
+          <div class="copy-after"><div class="copy-label">Section 02 opener — after</div><div class="copy-text">Good design isn't decoration. It's the moment a stranger decides whether to trust a business with their money.</div></div>
+        </div>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Issue · Case study "quote" has no attribution</div>
+        <p class="fix-text">Bong Pizza: <em>"The food had more personality than the website did. That gap was the whole brief."</em> — No name, no role, no source. Without attribution this reads as copy you wrote yourself. Unattributed quotes are worse than no quotes — they feel fabricated. Same issue for Peyala Café and Monolith Architecture.</p>
+        <div class="copy-compare">
+          <div class="copy-before"><div class="copy-label">Now</div><div class="copy-text">"The food had more personality than the website did. That gap was the whole brief."</div></div>
+          <div class="copy-after"><div class="copy-label">After (with real attribution OR reframe as design brief)</div><div class="copy-text">The brief, in one sentence: make the website as confident as the food. — OR — reframe as: "The brief was simple: close the gap between how good the food was and how ordinary the website looked."</div></div>
+        </div>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Issue · "00" section number is architecturally nonsensical</div>
+        <p class="fix-text">Your sections run 00 → 01 → 02 → 03 → 04 → 05. Section "00" implies a prelude or introduction, but the hero is actually your primary thesis statement, not a prologue. More importantly, using "00" signals that you copied a convention (editorial magazine numbering) without questioning whether it applies. Your numbering starts at 01 everywhere else — the hero eyebrow should either be removed entirely, or use a different system (just the role label, no number).</p>
+        <div class="copy-compare">
+          <div class="copy-before"><div class="copy-label">Now</div><div class="copy-text">00 — FRONTEND DEVELOPER / DIGITAL EXPERIENCE DESIGNER</div></div>
+          <div class="copy-after"><div class="copy-label">After</div><div class="copy-text">FRONTEND DEVELOPER · DIGITAL EXPERIENCE DESIGNER (no number — the hero earns this without a chapter marker)</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 3: TYPOGRAPHY -->
+  <div class="chapter">
+    <div class="chapter-header" onclick="toggle(this)">
+      <span class="chapter-num">03</span>
+      <span class="chapter-title">Typography</span>
+      <span class="chapter-badge badge-high">High Impact</span>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="chapter-body">
+      <div class="fix-block critical">
+        <div class="fix-label">Issue · Crimson italic used 3 times — the trick is spent by use #2</div>
+        <p class="fix-text">The crimson italic serif appears as: <strong>1)</strong> <em>customers</em> in the hero H1, <strong>2)</strong> <em>remembered</em> in the About section pullquote, <strong>3)</strong> the entire philosophy pullquote ("A website is the first conversation…") is styled in the same face. Three instances of the same typographic signature collapses the technique from "intentional accent" into "template." The hero instance is the strongest — keep only that one.</p>
+        <p class="fix-text">Fix: Remove the crimson italic from the About pullquote. Set that line in the regular serif italic, or in the body sans. Reserve crimson for hero only. The philosophy pullquote stands on its own weight as a full-block serif italic — it doesn't need the crimson to land.</p>
+      </div>
+      <div class="fix-block critical">
+        <div class="fix-label">Issue · H1 line-height is tighter than the text (76px height for 80px font)</div>
+        <p class="fix-text">The hero H1 is rendering at <strong>80.28px font-size / 76.27px line-height</strong>. A line-height ratio of 0.95 means consecutive lines would collide. This works only because the headline wraps naturally with enough descender clearance, but it's a timing bomb at certain breakpoints and viewport widths. Line-height on display type should be 0.95–1.05 intentionally if it's a one-liner, or 1.1–1.2 if it's multi-line. Audit this value at every breakpoint.</p>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Issue · H2 "About Shibam Pandab" renders at 16px / weight 400</div>
+        <p class="fix-text">This heading is visually lighter and smaller than the body paragraphs below it (18px). An H2 that's visually smaller than its body content inverts the information hierarchy. Either this is a screen-reader-only heading that should be visually hidden, or it needs to be promoted to an eyebrow label (11px, tracked, uppercase) and a real H2 display should be the first visible text of the section.</p>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Issue · "AI-ASSISTED WORKFLOW" heading in the philosophy section</div>
+        <p class="fix-text">This H3 exists inside a section titled "DESIGN PHILOSOPHY." The section has 3 philosophy principles (01 Clarity, 02 Typography, 03 Outcome) — then adds a 4th called "AI-ASSISTED WORKFLOW" which is a process disclosure, not a philosophy. The category mismatch creates a structural inconsistency. Either move this to the Process section or reframe it as a philosophy: "Tools serve the work, not the other way around."</p>
+      </div>
+      <div class="fix-block done">
+        <div class="fix-label">What's working · Body typography</div>
+        <p class="fix-text">18px body / 29.25px line-height (1.625 ratio) is solid — slightly generous but appropriate for this editorial register. The serif/sans pairing is coherent. Don't change the type system itself, only these specific problem instances.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 4: PROJECT PRESENTATION -->
+  <div class="chapter">
+    <div class="chapter-header" onclick="toggle(this)">
+      <span class="chapter-num">04</span>
+      <span class="chapter-title">Project Presentation</span>
+      <span class="chapter-badge badge-critical">Critical</span>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="chapter-body">
+      <div class="fix-block critical">
+        <div class="fix-label">Issue · Every project image slot says "VISUAL PENDING"</div>
+        <p class="fix-text">This is the most damaging thing on the page. You're applying for senior roles and pitching to international clients — and the work section has no work visible. A hiring manager or premium client closes the tab the moment they see "VISUAL PENDING" repeated 3 times. You have 11 deployed projects. Three of them need real screenshots in the next 48 hours before anything else in this plan matters.</p>
+        <p class="fix-text"><strong>Priority order for screenshots:</strong> MyPortfolio → NovaCare Clinics → Noir Étoile. These three represent your strongest technical range. For each: take a full-page scroll screenshot at 1440px width, crop to show the hero + one section below, export at 2x resolution. Frame them in a simple browser chrome mockup if available.</p>
+      </div>
+      <div class="fix-block critical">
+        <div class="fix-label">Issue · The project section intro says "Three businesses" but shows 3+ projects</div>
+        <p class="fix-text">Section 02 intro copy: <em>"Three businesses. Three different problems."</em> But the section then shows at least Bong Pizza, Peyala Café, and Monolith Architecture — and you have 11 total projects. Either commit to showing 3 best-in-class and making that framing accurate, or change the copy to reflect the actual scope.</p>
+        <div class="copy-compare">
+          <div class="copy-before"><div class="copy-label">Now (misleading)</div><div class="copy-text">Three businesses. Three different problems. The same approach: understand the business before touching the design.</div></div>
+          <div class="copy-after"><div class="copy-label">After (accurate)</div><div class="copy-text">Selected work. Each one a different business problem, the same approach: understand before you design.</div></div>
+        </div>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Fix · Both "VIEW CASE STUDY →" and "VIEW LIVE →" appear on each project</div>
+        <p class="fix-text">Two CTAs per project card creates the same hierarchy problem as the hero. Which action matters more? If the case study is the full story, lead with that. "VIEW LIVE" is secondary — it's proof, not the narrative. Stack them with clear visual weight difference: case study as primary, live site as a small text link below.</p>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Fix · Project numbering jumps from 01 → 04 → 05</div>
+        <p class="fix-text">In the work section, project numbers jump from 01 (Bong Pizza) to 04 (Peyala Café) to 05 (Monolith). This implies there are projects 02 and 03 that are hidden or missing, which creates confusion. Either renumber sequentially starting at 01 for the shown work, or remove numbers entirely from project cards (they don't need them — the section already has a section number).</p>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Fix · Case studies need outcomes, not just problems</div>
+        <p class="fix-text">Current structure: <strong>Problem</strong> → <strong>Quote</strong> → <strong>Context</strong> → <strong>CTAs</strong>. Missing: <strong>Solution</strong> and <strong>Outcome</strong>. The most credible portfolio entries end with a measurable result or a specific design decision that solved the brief. Even one sentence works: "The redesign replaced a buried PDF menu with an inline, filterable card layout — the business reported an increase in direct phone orders within the first week."</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 5: SPACING & RHYTHM -->
+  <div class="chapter">
+    <div class="chapter-header" onclick="toggle(this)">
+      <span class="chapter-num">05</span>
+      <span class="chapter-title">Spacing & Visual Rhythm</span>
+      <span class="chapter-badge badge-high">High Impact</span>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="chapter-body">
+      <div class="fix-block high">
+        <div class="fix-label">Issue · Hero section padding-top is 80px but padding-bottom is 0px</div>
+        <p class="fix-text">The hero section has <code>pt-20</code> (80px top) and no bottom padding. The visual weight sits at the top, which means the hero content feels like it floats against the features strip below it without a resolved bottom. Add at minimum <code>pb-16</code> (64px) to let the CTAs breathe before the border-bottom divider.</p>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Issue · "SCROLL" rotated label on the features strip</div>
+        <p class="fix-text">The rotated vertical "SCROLL" text on the right edge of the 4-column features strip is pure decoration. The visitor is already scrolling. This is a tic borrowed from agency sites where it appeared in full-height splash sections with no visible content below the fold. In your context — where the next section is already partially visible — it's meaningless noise. Remove it entirely.</p>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Issue · Philosophy section has two pullquotes in sequence</div>
+        <p class="fix-text">Section 02 (About) contains: a large pullquote (<em>"A website is the first conversation..."</em>) AND a separate full-screen text block in section 04 (<em>"A website is never the product..."</em>). Two full-width editorial text statements back to back with similar weight dilutes both. The second one (<em>"A website is never the product. It's the proof that the business behind it pays attention."</em>) is actually the stronger line — consider elevating it and removing or demoting the first.</p>
+      </div>
+      <div class="fix-block done">
+        <div class="fix-label">What's working · Section separation via 2px borders</div>
+        <p class="fix-text">The <code>border-b-2 border-ink</code> system for section dividers is clean and editorial. It creates structure without using background colors or heavy visual weight. Keep this — it's one of the strongest systemic decisions on the page.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 6: MICRO-INTERACTIONS & PREMIUM DETAILS -->
+  <div class="chapter">
+    <div class="chapter-header" onclick="toggle(this)">
+      <span class="chapter-num">06</span>
+      <span class="chapter-title">Premium Details & Micro-interactions</span>
+      <span class="chapter-badge badge-medium">Polish</span>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="chapter-body">
+      <div class="fix-block high">
+        <div class="fix-label">Fix · Footer email is unlinked plain text</div>
+        <p class="fix-text"><code>shibampandab@gmail.com</code> in the footer renders as plain text — clicking does nothing. On mobile it's invisible as an action. This is a broken conversion path on a client-acquisition portfolio. Wrap in <code>&lt;a href="mailto:shibampandab@gmail.com"&gt;</code> and add a subtle underline-on-hover. Also: consider a custom domain email (hi@shibam.dev or similar) — Gmail signals student project to international clients paying premium rates.</p>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Fix · Hover states on nav links go to red — the wrong signal</div>
+        <p class="fix-text">Nav links have <code>hover:text-red</code>. Crimson red on hover implies "danger" or "destructive action" in conventional UI. In this editorial context it's a brand color, but on nav links it creates a micro-moment of visual tension. The hover state should feel like refinement, not alarm. Consider <code>hover:text-ink</code> from a muted starting color, or an underline reveal, rather than a color shift to the accent.</p>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Fix · Link-style CTAs use generic arrow →</div>
+        <p class="fix-text">Every ghost/text CTA ends with " →". This is fine — directional arrows in text links are a clear convention. But the arrow is a static character. At this quality level, the arrow should animate on hover: slide 4px right, then return. One line of CSS: <code>transition: transform 0.2s ease; group-hover:translate-x-1</code>. You already have <code>group</code> on these elements — activate it.</p>
+      </div>
+      <div class="fix-block done">
+        <div class="fix-label">Fix · Image placeholder transition when real images load</div>
+        <p class="fix-text">Once you add real project images, wrap each in a container with <code>overflow: hidden</code> and apply a subtle scale reveal on scroll: <code>scale(1.03) → scale(1.0)</code> over 600ms with an ease-out curve. This makes images feel like they're "arriving" rather than just appearing. Do not add parallax — it cheapens the editorial register.</p>
+      </div>
+      <div class="fix-block done">
+        <div class="fix-label">Fix · Page entrance animation</div>
+        <p class="fix-text">The current page load begins with a blank cream screen for ~1.5 seconds before content appears. This is the Framer Motion / React hydration delay. Whatever the technical cause: the blank screen must be filled. Either add a minimal loading state (the wordmark fading in alone), or use SSR to render above-fold content without JS dependency. A premium portfolio never greets you with an empty cream rectangle.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 7: CONVERSION JOURNEY -->
+  <div class="chapter">
+    <div class="chapter-header" onclick="toggle(this)">
+      <span class="chapter-num">07</span>
+      <span class="chapter-title">Conversion Journey Audit</span>
+      <span class="chapter-badge badge-critical">Critical</span>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="chapter-body">
+      <div class="fix-block critical">
+        <div class="fix-label">Journey map — where trust is lost</div>
+        <p class="fix-text">
+          <strong>Landing (Hero)</strong> ✓ Strong. Headline commands attention. Subline loses with "AI-accelerated." Two CTAs split attention.<br><br>
+          <strong>↓ Trust (Why / About)</strong> ✓ Copy quality is good. The "HOW I THINK" section is genuinely strong. However the repeated "remembered" across sections 01 and 02 dulls the message.<br><br>
+          <strong>↓ Projects</strong> ✗ Complete trust failure. "VISUAL PENDING" × 3. No outcomes. Unattributed quotes. Project numbering inconsistency (01 → 04 → 05). This is where the visitor decides to contact you or leave — and it currently makes them leave.<br><br>
+          <strong>↓ Process</strong> ↗ Reasonably good. Three steps, clear flow. "AI-accelerated" in step 02 is the only copy problem here.<br><br>
+          <strong>↓ Availability</strong> ✓ The scarcity signal ("limited basis, by enquiry") works, but the CTA "CHECK AVAILABILITY" is cold. "START A CONVERSATION" is warmer and converts better.<br><br>
+          <strong>↓ Contact / CTA</strong> ✓ "Have a business worth building for?" is a strong closer. Don't change it. The CTA "START A PROJECT" works here because the visitor has now seen your process and philosophy.<br><br>
+          <strong>↓ Footer</strong> ✗ Email unlinked. No LinkedIn, GitHub, or social proof. Footer is the last impression — currently leaves the visitor with no secondary path.
+        </p>
+      </div>
+      <div class="fix-block high">
+        <div class="fix-label">Fix · Add one trust anchor in the footer</div>
+        <p class="fix-text">Add a single, quiet link to your GitHub profile in the footer. For a frontend hiring context, GitHub is your second portfolio. Don't add a full social bar — one link is enough. For client contexts, a LinkedIn link works similarly. The footer currently has: logo, nav links, email. Add: one line below the email, lighter color — "See the code → github.com/ShibamPandab"</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 8: BEFORE vs AFTER -->
+  <div class="chapter">
+    <div class="chapter-header" onclick="toggle(this)">
+      <span class="chapter-num">08</span>
+      <span class="chapter-title">Before vs After — Key Changes</span>
+      <span class="chapter-badge badge-info">Summary</span>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="chapter-body">
+      <div class="metric-row" style="font-size:11px;font-weight:500;letter-spacing:0.07em;color:var(--text-muted);text-transform:uppercase;padding-bottom:4px;">
+        <span class="metric-name">Change</span>
+        <span class="metric-before">Before</span>
+        <span class="metric-arrow"></span>
+        <span class="metric-after">After</span>
+      </div>
+      <div class="metric-row"><span class="metric-name">CTAs in hero viewport</span><span class="metric-before">3 competing</span><span class="metric-arrow">→</span><span class="metric-after">1 primary</span></div>
+      <div class="metric-row"><span class="metric-name">Project images visible</span><span class="metric-before">0 (all pending)</span><span class="metric-arrow">→</span><span class="metric-after">3 minimum</span></div>
+      <div class="metric-row"><span class="metric-name">Crimson italic uses</span><span class="metric-before">3× on homepage</span><span class="metric-arrow">→</span><span class="metric-after">1× (hero only)</span></div>
+      <div class="metric-row"><span class="metric-name">"AI-accelerated" appearances</span><span class="metric-before">3× (subline, features, process)</span><span class="metric-arrow">→</span><span class="metric-after">0 on homepage</span></div>
+      <div class="metric-row"><span class="metric-name">Hero subline word count</span><span class="metric-before">35 words, 3 clauses</span><span class="metric-arrow">→</span><span class="metric-after">16 words, 2 clauses</span></div>
+      <div class="metric-row"><span class="metric-name">Footer email</span><span class="metric-before">Unlinked plain text</span><span class="metric-arrow">→</span><span class="metric-after">mailto: link</span></div>
+      <div class="metric-row"><span class="metric-name">Project quotes attributed</span><span class="metric-before">0 of 3</span><span class="metric-arrow">→</span><span class="metric-after">3 of 3 (or reframed)</span></div>
+      <div class="metric-row"><span class="metric-name">Stats quality</span><span class="metric-before">3 · 0 · 100% (weak)</span><span class="metric-arrow">→</span><span class="metric-after">11 shipped · 3 industries · 100 Lighthouse</span></div>
+      <div class="metric-row"><span class="metric-name">Section 00 eyebrow</span><span class="metric-before">"00 —" (nonsensical)</span><span class="metric-arrow">→</span><span class="metric-after">No number (hero earns it)</span></div>
+      <div class="metric-row"><span class="metric-name">Project numbering</span><span class="metric-before">01 → 04 → 05 (broken)</span><span class="metric-arrow">→</span><span class="metric-after">01 → 02 → 03 (sequential)</span></div>
+      <div class="metric-row"><span class="metric-name">Arrow → hover animation</span><span class="metric-before">Static</span><span class="metric-arrow">→</span><span class="metric-after">Slides 4px right on hover</span></div>
+      <div class="metric-row"><span class="metric-name">Footer secondary path</span><span class="metric-before">None</span><span class="metric-arrow">→</span><span class="metric-after">GitHub link (1 line)</span></div>
+      <div class="metric-row"><span class="metric-name">Page load blank state</span><span class="metric-before">~1.5s cream blank</span><span class="metric-arrow">→</span><span class="metric-after">Wordmark appears instantly</span></div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 9: REMAINING ISSUES -->
+  <div class="chapter">
+    <div class="chapter-header" onclick="toggle(this)">
+      <span class="chapter-num">09</span>
+      <span class="chapter-title">Remaining Issues (Not in Scope Yet)</span>
+      <span class="chapter-badge badge-info">Future</span>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="chapter-body">
+      <div class="remaining"><strong>No custom domain email.</strong> shibampandab@gmail.com is fine for personal use. For a premium freelance business targeting international clients at £3,000–£8,000+ per project, a custom domain email is table stakes. hi@shibampandab.com or studio@shibam.dev would cost &lt;₹500/year.</div>
+      <div class="remaining"><strong>No real testimonials with attribution.</strong> Once you have 1–2 clients who've seen results, get a one-sentence quote with their name and business. This single addition would be more credible than any design change on this page.</div>
+      <div class="remaining"><strong>Individual project pages are not audited.</strong> The /projects, /services, /process, /contact routes have not been reviewed here. They each need the same copy and CTA audit.</div>
+      <div class="remaining"><strong>Mobile experience not reviewed.</strong> The initial screenshots were taken at 788px width. At that size the 4-column features strip likely stacks — that transition needs to be verified. The hero H1 at 80px on mobile likely wraps awkwardly.</div>
+      <div class="remaining"><strong>No Open Graph image.</strong> When this URL is shared on LinkedIn or WhatsApp, it likely shows a blank preview. An OG image (1200×630) with the wordmark and tagline on the cream background takes 30 minutes to set up and makes every share look professional.</div>
+      <div class="remaining"><strong>Contact page / form not reviewed.</strong> The conversion endpoint — where interested clients land after clicking "START A PROJECT" — has not been audited here. It needs the same trust-signal attention as the homepage.</div>
+    </div>
+  </div>
+
+  <!-- CHAPTER 10: VERSION RECOMMENDATION -->
+  <div class="chapter">
+    <div class="chapter-header" onclick="toggle(this)">
+      <span class="chapter-num">10</span>
+      <span class="chapter-title">Version Recommendation</span>
+      <span class="chapter-badge badge-info">Action Plan</span>
+      <span class="toggle-icon">›</span>
+    </div>
+    <div class="chapter-body">
+      <div class="summary-grid">
+        <div class="summary-card">
+          <div class="summary-card-label">v2.1 — Today (48hrs)</div>
+          <div class="summary-card-val">Copy</div>
+          <div class="summary-card-sub">Fix all AI-accelerated instances, remove "00", fix email link, rewrite stats, fix quote attributions</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-card-label">v2.2 — This week</div>
+          <div class="summary-card-val">Visuals</div>
+          <div class="summary-card-sub">Add real screenshots to 3 projects, fix project numbering, fix CTA hierarchy in hero</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-card-label">v2.3 — Next sprint</div>
+          <div class="summary-card-val">Polish</div>
+          <div class="summary-card-sub">Arrow hover animation, fix crimson italic to hero only, page load state, GitHub footer link</div>
+        </div>
+        <div class="summary-card">
+          <div class="summary-card-label">v3.0 — After first 2 clients</div>
+          <div class="summary-card-val">Proof</div>
+          <div class="summary-card-sub">Real testimonials with attribution, outcome metrics in case studies, custom domain email</div>
+        </div>
+      </div>
+      <div class="version-rec">
+        <div class="version-rec-label">Single most impactful change right now</div>
+        <p class="version-title">Ship 3 real project screenshots before any other change.</p>
+        <p class="version-desc">Every other improvement in this document is copy, spacing, or micro-interaction polish. None of it matters if the work section has no work in it. At its current state, a hiring manager or international client who reaches the project section sees three identical placeholder boxes and leaves. You have 11 deployed projects and world-class typography surrounding empty frames. Fix the frames. The design will close itself.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+function toggle(header) {
+  const body = header.nextElementSibling;
+  const isOpen = body.classList.contains('open');
+  body.classList.toggle('open', !isOpen);
+  header.classList.toggle('active', !isOpen);
+}
+// Auto-open chapter 10
+document.addEventListener('DOMContentLoaded', () => {
+  const headers = document.querySelectorAll('.chapter-header');
+  if (headers.length) toggle(headers[headers.length - 1]);
+});
+</script>

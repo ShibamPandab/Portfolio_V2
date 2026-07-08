@@ -636,4 +636,187 @@ export const PROJECTS: Project[] = [
     liveHref: 'https://lush-aura-saloon.vercel.app/',
     githubHref: 'https://github.com/ShibamPandab/LushAura-Saloon',
   },
+  {
+    slug: 'finca-coffee',
+    featured: false,
+    index: '14',
+    name: 'Finca Coffee',
+    category: 'Hospitality — Specialty Coffee',
+    quote: 'A brand that grows its own coffee on a four-generation family farm doesn’t need marketing spin — it needs a site that gets out of the way and lets that story do the work.',
+    description:
+      'A specialty coffee roaster with an unusually direct supply chain — a family-run farm in Honduras feeding a single retail café in Miami — needed a site that could carry that story from crop to cup without turning into a brochure.',
+    challenge:
+      'Most coffee sites either lean entirely on lifestyle photography or bury the sourcing story in an About page nobody reads. The provenance — one family, one farm, four generations — is the actual differentiator, and it needed to be structural, not decorative.',
+    solution:
+      'A vanilla JS build organized around the supply chain itself: a farm timeline and story section leads the page, followed by the menu, a retail shop for take-home bags, and a persistent path to order ahead — each section handled by its own small, focused script rather than one framework doing everything.',
+    designDecisions: [
+      'A dedicated farm-timeline section ahead of the menu, so provenance is read before price.',
+      'Signature drinks and wellness offerings given their own visual treatment, instead of folding into one long menu list.',
+      'A light/dark theme switcher, since a coffee shop’s site gets browsed at very different times of day than it’s open.',
+    ],
+    technologies: ['JavaScript', 'CSS', 'Vite'],
+    features: [
+      { title: 'Farm-to-Cup Story', desc: 'A dedicated timeline section walks through the family farm’s history ahead of any product.' },
+      { title: 'Menu & Signature Drinks', desc: 'Espresso, pour-over, cold brew, and standout drinks like the Matcha Oat Latte each get their own presentation.' },
+      { title: 'Retail Shop Section', desc: 'Single-origin bags are sold for take-home brewing, not just in-café drinks.' },
+      { title: 'Theme Switcher', desc: 'A light/dark toggle keeps the site comfortable to browse regardless of time of day.' },
+    ],
+    faqs: [
+      {
+        q: 'Why build this without a framework like React?',
+        a: 'A single-café marketing site doesn’t need the overhead of a component framework — vanilla JS with Vite keeps the build lightweight and the load time fast, which matters more here than reusability.',
+      },
+      {
+        q: 'Is it fully responsive?',
+        a: 'Yes — tested across mobile, tablet, and desktop, since most visitors are checking hours or the menu from a phone before walking in.',
+      },
+      {
+        q: 'Can it scale later?',
+        a: 'Yes — the section-based structure (story, menu, shop, visit, order) can take a new section or a real ordering integration without a rebuild.',
+      },
+      {
+        q: 'Is SEO included?',
+        a: 'Semantic HTML and metadata fundamentals are part of the build by default — deeper local-search work is scoped separately if needed.',
+      },
+    ],
+    liveHref: 'https://finca-coffee.vercel.app/',
+    githubHref: 'https://github.com/ShibamPandab/Finca-Coffee',
+  },
+  {
+    slug: 'bong-pizza-keshapat',
+    featured: false,
+    index: '15',
+    name: 'Bong Pizza Keshapat',
+    category: 'Restaurant — Pizza & Fast Food',
+    quote: 'In a town with no delivery aggregators, the ordering system had to run through WhatsApp instead of pretending an app store solves an infrastructure problem.',
+    description:
+      'A pizza and fast-food restaurant in a rural West Bengal town outside the reach of Swiggy or Zomato, needing a real ordering channel that didn’t depend on an aggregator’s commission or a backend the restaurant would have to maintain.',
+    challenge:
+      'Aggregator commissions run 20–30%, and building a full ordering backend for a single-location restaurant is disproportionate to the problem. The site needed to feel like a real ordering app while the actual checkout stayed as simple as a WhatsApp message.',
+    solution:
+      'A cart-first ordering flow — browse a 61-item menu across 10 categories, build a persistent cart, then hand off a formatted order summary straight to WhatsApp, where staff confirm availability and delivery details directly.',
+    designDecisions: [
+      'Cart state persisted in localStorage, so a customer’s order survives a closed tab or a spotty rural connection.',
+      'Checkout ends at a WhatsApp handoff instead of a payment form, matching how the restaurant actually confirms and fulfills orders.',
+      'Delivery areas listed by village with charges and estimated times, instead of a generic delivery-radius map.',
+    ],
+    technologies: ['React', 'TypeScript', 'Tailwind CSS'],
+    features: [
+      { title: 'Category-Based Menu', desc: '61 items across 10 categories, with live search and category navigation.' },
+      { title: 'Persistent Cart', desc: 'Cart contents are saved to localStorage and survive a closed tab.' },
+      { title: 'WhatsApp Checkout', desc: 'Orders hand off as a formatted summary via wa.me, with no payment gateway required.' },
+      { title: 'Village Delivery Listings', desc: 'Delivery areas, charges, and estimated times are listed by village, not a generic radius.' },
+    ],
+    faqs: [
+      {
+        q: 'Why WhatsApp instead of a payment gateway?',
+        a: 'For a single-location restaurant in an area aggregators don’t cover, a payment gateway adds cost and complexity without changing how orders actually get fulfilled — a direct WhatsApp handoff matches how the kitchen already operates.',
+      },
+      {
+        q: 'Is it fully responsive?',
+        a: 'Yes — built mobile-first, since nearly every order originates from a phone.',
+      },
+      {
+        q: 'Can it scale later?',
+        a: 'Yes — the modular structure has room for an owner dashboard, live order status, and UPI payments without rebuilding the ordering flow.',
+      },
+      {
+        q: 'Is SEO included?',
+        a: 'Semantic HTML and metadata fundamentals are part of the build by default.',
+      },
+    ],
+    liveHref: 'https://bong-pizza-renew.vercel.app/',
+    githubHref: 'https://github.com/ShibamPandab/Bong-Pizza-Renew',
+  },
+  {
+    slug: 'cafe-elio',
+    featured: false,
+    index: '16',
+    name: 'Cafe Elio',
+    category: 'Hospitality — Cafe & Lounge',
+    quote: 'Cafe Elio isn’t selling food first — it’s selling a hangout, and the site had to read like one before a single menu item shows up.',
+    description:
+      'A quirky, pool-table-and-graffiti-wall hangout in Jadavpur, Kolkata, where the actual draw is the space and the vibe as much as the menu — chicken lollipop and a strawberry mojito, but also blue lighting, wall art, and a room built for staying a while.',
+    challenge:
+      'Cafe websites default to food photography and a hero banner. That undersells a place whose reviews talk about the room — the pool table, the lighting, the music — as much as the food.',
+    solution:
+      'A multi-page site (About, Menu, Gallery, Events, Reservation, Journal, FAQ) that treats the space itself as content — a gallery of the room’s actual character — with the menu and booking kept just as reachable, not competing for the same screen.',
+    designDecisions: [
+      'A dedicated Gallery page for the room’s visual identity — pool table, graffiti wall, lounge seating — instead of folding it into a hero carousel.',
+      'Signature items (Chicken Lollipop, Peri Peri Fries, Strawberry Mojito) called out specifically, since reviews already lead with them.',
+      'Reservation and Contact kept as their own pages, not a shared form buried under Events.',
+    ],
+    technologies: ['React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+    features: [
+      { title: 'Room-First Gallery', desc: 'A dedicated gallery page captures the pool table, graffiti wall, and lounge seating that define the space.' },
+      { title: 'Signature Menu Highlights', desc: 'Standout items like the Chicken Lollipop and Strawberry Mojito get called out, not buried in a full menu list.' },
+      { title: 'Reservation & Events Pages', desc: 'Booking a table or checking upcoming events each get a dedicated page.' },
+      { title: 'Responsive Design', desc: 'Built mobile-first, since most visitors are checking hours or vibe from a phone.' },
+    ],
+    faqs: [
+      {
+        q: 'Is it fully responsive?',
+        a: 'Yes — tested across mobile, tablet, and desktop, since most first impressions happen on a phone.',
+      },
+      {
+        q: 'Can it scale later?',
+        a: 'Yes — additional pages like Journal and Events already show the structure can take more content without a redesign.',
+      },
+      {
+        q: 'Can the content be updated?',
+        a: 'Menu items, gallery photos, and event listings are held in typed data files, so updates don’t require touching page components.',
+      },
+      {
+        q: 'Is SEO included?',
+        a: 'Semantic structure and metadata fundamentals are part of the build by default.',
+      },
+    ],
+    liveHref: 'https://cafe-elio.vercel.app/',
+    githubHref: 'https://github.com/ShibamPandab/Cafe-Elio',
+  },
+  {
+    slug: 'lnj-billing',
+    featured: false,
+    index: '17',
+    name: 'LNJ Billing',
+    category: 'Business Software — Jewellery Billing & Inventory',
+    quote: 'A jewellery counter runs on a register book, a calculator, and a rate card taped to the wall — the brief was to replace all three without asking anyone to learn a new system.',
+    description:
+      'A billing and inventory system for small jewellery retailers, built to replace the manual register-and-spreadsheet workflow most independent shops still run on — one where stock and billing live on two different pieces of paper and slowly drift apart.',
+    challenge:
+      'Manual billing means every making charge and GST split gets hand-calculated per sale, and inventory is a separate, often-skipped step — so stock counts silently diverge from what’s actually on the showcase, discovered only at audit time.',
+    solution:
+      'A product-ID-centric system where every invoice line, stock movement, and barcode resolves back to one canonical product record. Billing looks a product up by ID, prices it from the live gold rate plus making charge, and deducts real stock atomically — the invoice and the stock change either both happen or neither does.',
+    designDecisions: [
+      'Selling price computed live from the day’s rate rather than stored, so a product’s listed price and what an invoice actually charges can never disagree.',
+      'Inventory driven by an append-only stock-movement ledger instead of an editable counter, so every stock change is traceable to a reason.',
+      'Barcode and SKU derived automatically from the Product ID rather than typed by hand, removing an entire category of mismatched-identifier errors.',
+    ],
+    technologies: ['React', 'TypeScript', 'Tailwind CSS'],
+    features: [
+      { title: 'Automated Invoice Generation', desc: 'Product lines are priced automatically from the live gold rate, making charge, and GST — not calculated by hand.' },
+      { title: 'Atomic Stock Deduction', desc: 'Invoice creation and inventory stock-out happen as one operation — a bill is never saved without the matching stock change.' },
+      { title: 'Product & Inventory Management', desc: 'Full product catalogue with auto-generated Product ID, barcode, and SKU, backed by a stock-movement history.' },
+      { title: 'PDF & Print Invoices', desc: 'Every invoice exports to a branded, GST-compliant PDF or print-ready sheet on demand.' },
+    ],
+    faqs: [
+      {
+        q: 'Does this require a backend or database?',
+        a: 'Not for this build — it runs fully offline on local storage, with the architecture already structured so a real backend can be swapped in later without rewriting the app.',
+      },
+      {
+        q: 'Is it fully responsive?',
+        a: 'Yes — the layout collapses to a mobile-friendly sidebar and drawer navigation, since a shop counter is as likely to run a tablet as a desktop.',
+      },
+      {
+        q: 'Can it scale later?',
+        a: 'Yes — role-based logins, cloud sync, and supplier/purchase-order management are all designed to sit on top of the existing structure without a rebuild.',
+      },
+      {
+        q: 'How does it prevent billing and stock from getting out of sync?',
+        a: 'Every invoice line references a product by its ID rather than its name, and stock is only ever changed through a recorded movement — so an invoice and its stock deduction happen together or not at all.',
+      },
+    ],
+    liveHref: 'https://implement-of-login-page.vercel.app/',
+  },
 ]

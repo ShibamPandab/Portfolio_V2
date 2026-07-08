@@ -1,0 +1,146 @@
+
+<style>
+  .audit { font-family: var(--font-sans); max-width: 680px; padding: 0; }
+  .verdict-bar { background: var(--bg-warning); border: 0.5px solid var(--border-warning); border-radius: var(--radius); padding: 12px 16px; display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .verdict-label { font-size: 11px; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--text-warning); }
+  .verdict-text { font-size: 14px; color: var(--text-primary); font-weight: 500; }
+  h2.section-head { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-secondary); margin: 32px 0 12px; border-top: 0.5px solid var(--border); padding-top: 16px; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; margin-bottom: 8px; }
+  th { text-align: left; font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; color: var(--text-muted); padding: 6px 8px; border-bottom: 0.5px solid var(--border); }
+  td { padding: 8px 8px; border-bottom: 0.5px solid var(--border); color: var(--text-primary); vertical-align: top; line-height: 1.5; }
+  .pass { color: #3B6D11; background: #EAF3DE; font-size: 11px; font-weight: 500; padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
+  .needs { color: #854F0B; background: #FAEEDA; font-size: 11px; font-weight: 500; padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
+  .fail { color: #A32D2D; background: #FCEBEB; font-size: 11px; font-weight: 500; padding: 2px 7px; border-radius: 4px; white-space: nowrap; }
+  .issue { border-left: 2px solid var(--border); padding: 10px 14px; margin: 10px 0; border-radius: 0 var(--radius) var(--radius) 0; background: var(--surface-1); }
+  .issue.p0 { border-left-color: #E24B4A; }
+  .issue.p1 { border-left-color: #BA7517; }
+  .issue.p2 { border-left-color: #1D9E75; }
+  .issue-label { font-size: 11px; font-weight: 500; letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 4px; }
+  .p0 .issue-label { color: #A32D2D; }
+  .p1 .issue-label { color: #854F0B; }
+  .p2 .issue-label { color: #0F6E56; }
+  .issue p { font-size: 13px; color: var(--text-secondary); margin: 0; line-height: 1.6; }
+  .issue strong { color: var(--text-primary); font-weight: 500; }
+  .fix { font-size: 12px; color: var(--text-accent); margin-top: 6px; }
+  .winner { background: var(--surface-1); border: 0.5px solid var(--border); border-radius: var(--radius); padding: 12px 16px; margin-top: 8px; font-size: 13px; color: var(--text-secondary); line-height: 1.6; }
+  .impact-pill { display: inline-block; background: var(--bg-accent); color: var(--text-accent); font-size: 11px; font-weight: 500; padding: 3px 8px; border-radius: 4px; margin-right: 6px; }
+  .big-rec { background: var(--surface-2); border: 0.5px solid var(--border-strong); border-radius: 12px; padding: 16px 20px; margin-top: 16px; }
+  .big-rec .rec-label { font-size: 11px; font-weight: 500; letter-spacing: 0.1em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 8px; }
+  .big-rec p { font-size: 14px; color: var(--text-primary); margin: 0; line-height: 1.6; font-weight: 500; }
+</style>
+
+<div class="audit">
+  <h2 style="font-size:18px;font-weight:500;margin:0 0 6px;color:var(--text-primary)">Portfolio Audit — Shibam Pandab</h2>
+  <p style="font-size:13px;color:var(--text-muted);margin:0 0 20px">Reviewed as: Senior frontend role application &nbsp;·&nbsp; Auditor persona: Principal Designer, Linear/Vercel &nbsp;·&nbsp; June 2026</p>
+
+  <div class="verdict-bar">
+    <span class="verdict-label">Verdict</span>
+    <span class="verdict-text">Needs Revision — Strong aesthetic bones, but 4 critical gaps prevent this from being taken seriously at senior level</span>
+  </div>
+
+  <h2 class="section-head">Dimension Ratings</h2>
+  <table>
+    <thead><tr><th style="width:30%">Dimension</th><th style="width:18%">Rating</th><th>Primary Issue</th></tr></thead>
+    <tbody>
+      <tr><td>Typography</td><td><span class="needs">Needs Work</span></td><td>Orphaned italic accent word reused verbatim in hero AND philosophy section — signals formula, not craft</td></tr>
+      <tr><td>Layout & Grid</td><td><span class="needs">Needs Work</span></td><td>Left margin is ~64px but right side of the 4-column features grid bleeds off-screen at 1440px — no max-width container</td></tr>
+      <tr><td>White Space</td><td><span class="pass">Pass</span></td><td>Breathing room is generous; the one genuine strength of this page</td></tr>
+      <tr><td>Visual Rhythm</td><td><span class="needs">Needs Work</span></td><td>"00" section eyebrow makes no sequential sense — it's not section 0 of anything</td></tr>
+      <tr><td>Color</td><td><span class="pass">Pass</span></td><td>Cream / black / crimson is restrained and coherent; crimson is used too liberally in section numbers however</td></tr>
+      <tr><td>Consistency</td><td><span class="fail">Fail</span></td><td>Every case study image slot says "VISUAL PENDING" — this is a portfolio. No visuals = no portfolio.</td></tr>
+      <tr><td>Brand & Premium Feel</td><td><span class="needs">Needs Work</span></td><td>The editorial aesthetic is on-trend but instantly recognizable as one of three current AI-default looks</td></tr>
+      <tr><td>UX & Conversion</td><td><span class="fail">Fail</span></td><td>CTA "START A PROJECT" appears 4 times before the fold including nav — competing with itself</td></tr>
+      <tr><td>Accessibility</td><td><span class="fail">Fail</span></td><td>Gmail address in footer is plain text — not a mailto: link. Contact is a conversion action, not a copywriting exercise.</td></tr>
+      <tr><td>Performance</td><td><span class="pass">Pass</span></td><td>No visible image-heavy sections (ironic given the placeholders), type-based layout loads fast</td></tr>
+    </tbody>
+  </table>
+
+  <h2 class="section-head">P0 — Must Fix Before This Ships</h2>
+
+  <div class="issue p0">
+    <div class="issue-label">P0 · Work section has zero actual work</div>
+    <p>Every single case study shows <strong>"VISUAL PENDING"</strong> in the preview slot. You're applying for a frontend role and your portfolio has no screenshots, no live links, no visual proof of execution. This is the single most damaging thing on the page. A hiring manager at Vercel or Linear closes this tab the moment they see that placeholder repeated 5+ times.</p>
+    <div class="fix">→ Ship with 3 real projects with real screenshots. Fewer real entries beat more placeholder ones every time. You have 11 deployed projects — pick your 3 strongest and add actual images today.</div>
+  </div>
+
+  <div class="issue p0">
+    <div class="issue-label">P0 · Duplicate CTA creates conversion paralysis</div>
+    <p>The nav has <strong>"START A PROJECT"</strong> (top right), the hero has <strong>"START A PROJECT →"</strong> as a ghost link AND <strong>"VIEW CASE STUDIES"</strong> as primary — and the footer repeats it again. Two competing primary actions in the hero means neither is primary. The black button says one thing; the ghost link next to it says another. The visitor's eye doesn't know where to go.</p>
+    <div class="fix">→ Hero: one primary CTA — "View My Work" (black button). Remove the ghost "START A PROJECT" from the hero entirely. Let the nav CTA handle the hire intent. Keep the footer CTA as the closer.</div>
+  </div>
+
+  <div class="issue p0">
+    <div class="issue-label">P0 · Stats section is factually embarrassing for a senior candidate</div>
+    <p>The "Selected Numbers" shows <strong>3</strong> business categories, <strong>0</strong> templates used, <strong>100%</strong> responsive. These are not the numbers a senior developer leads with. "3 categories designed for" is thin. "0 templates" is a negative claim dressed up as a positive. "100% responsive" is table stakes — it's like a chef listing "100% cooked food" as a credential.</p>
+    <div class="fix">→ Replace with real proof: number of deployed projects, client satisfaction metric (even NPS), or Lighthouse scores from your actual builds. If you have 11 projects live, say "11 production deployments." That's real.</div>
+  </div>
+
+  <div class="issue p0">
+    <div class="issue-label">P0 · Email is plain text — not a link</div>
+    <p><code>shibampandab@gmail.com</code> in the footer is an unlinked string. Clicking it does nothing. On mobile it's not even tappable. This is a broken contact path on a client-acquisition portfolio.</p>
+    <div class="fix">→ Wrap in <code>&lt;a href="mailto:shibampandab@gmail.com"&gt;</code>. Also: a Gmail address signals student project, not freelance professional. Consider a custom domain email.</div>
+  </div>
+
+  <h2 class="section-head">P1 — Fix Before Showing to Clients or Recruiters</h2>
+
+  <div class="issue p1">
+    <div class="issue-label">P1 · "00" eyebrow is structurally incoherent</div>
+    <p>The hero uses <strong>"00"</strong> as a section number. Your subsequent sections use 01, 02, 03, 04, 05. Section 00 would imply a prologue or intro — but the hero is actually the primary message, not a preface. This numbering device signals "I copied an editorial convention without understanding why it exists." On a portfolio for a designer-developer, that's a meaningful tell.</p>
+    <div class="fix">→ Remove "00" entirely. The hero doesn't need a section number — it's the thesis, not a chapter. Start numbering at 01 for the first content section.</div>
+  </div>
+
+  <div class="issue p1">
+    <div class="issue-label">P1 · The italic accent word is a repeated trick, not a system</div>
+    <p>The crimson italic <em>customers</em> in the hero headline is your signature move. Then in the philosophy section, crimson italic <em>remembered</em> appears again — same typeface, same color, same treatment, same mid-sentence position. Then there's a pullquote using the same italic face in full block size. Three uses of the same trick in one scroll = it stops being a choice and starts looking like a template.</p>
+    <div class="fix">→ Use the crimson italic in exactly one place — the hero. Make it singular. The pullquote is strong enough on its own in the serif body face without the crimson.</div>
+  </div>
+
+  <div class="issue p1">
+    <div class="issue-label">P1 · The 4-column features band has weak copy</div>
+    <p>"Design-Led," "Built to Convert," "AI-Accelerated," "Production-Ready" — these are the 2024 freelance web dev value-prop defaults. Every Framer template, every Webflow agency, every Fiverr seller uses at least two of these phrases. "AI-Accelerated" as a selling point to a premium client is a red flag, not a benefit — it implies speed over craft. "Production-Ready" is what all code should be.</p>
+    <div class="fix">→ Rewrite from the client's perspective. What does the client gain? "Bookings before the site launches" beats "Built to Convert." "Ships in 2 weeks, not 2 months" beats "AI-Accelerated." Make it specific and time-bound.</div>
+  </div>
+
+  <div class="issue p1">
+    <div class="issue-label">P1 · Case study copy is self-referential, not client-outcome-oriented</div>
+    <p>The Bong Pizza write-up says the old site had "a stock hero photo and a menu buried in a PDF." That's a diagnosis. There's no outcome stated anywhere — no increase in online orders, no reduction in support calls, no measurable result. The quote <em>"The food had more personality than the website did"</em> is styled as a client testimonial but reads like you wrote it. There's no attribution — no name, no role, no business.</p>
+    <div class="fix">→ Add real outcomes: "Online orders up 40% in first month." If you don't have the numbers yet, get them from the client. If you can't, at least attribute the quote: "— [Name], Owner, Bong Pizza."</div>
+  </div>
+
+  <div class="issue p1">
+    <div class="issue-label">P1 · Hero subline buries the lead</div>
+    <p>The subtext reads: <em>"Premium, design-led websites for restaurants, boutiques, and brands that refuse to look ordinary online — built fast with an AI-accelerated workflow, finished by hand."</em> The strongest claim — "finished by hand" — is at the end, buried after a long em-dash clause. "AI-accelerated workflow" in the middle undercuts the craft message you're selling. The sentence tries to say three things and lands none of them cleanly.</p>
+    <div class="fix">→ Cut it in half: <em>"Premium websites for restaurants, boutiques, and brands — built by hand, delivered fast."</em> Lead with the client outcome, not your process.</div>
+  </div>
+
+  <h2 class="section-head">P2 — Polish Gaps</h2>
+
+  <div class="issue p2">
+    <div class="issue-label">P2 · Vertical scroll cue "SCROLL" text on the features band</div>
+    <p>The rotated "SCROLL" label on the right edge of the 4-column features section is decoration with no function. The section is already visible. The user doesn't need to be told to scroll — they're already scrolling. This is a visual tic borrowed from agency sites where it made more sense.</p>
+    <div class="fix">→ Remove it. The page is better without it.</div>
+  </div>
+
+  <div class="issue p2">
+    <div class="issue-label">P2 · The "Good design isn't decoration" section is orphaned</div>
+    <p>A large full-width italic serif pullquote appears between the features strip and the philosophy section with a big empty gap above it. It floats without structural anchor — no section label, no connection to what came before. It reads as filler between two real sections.</p>
+    <div class="fix">→ Either integrate it as the opening statement of the philosophy section (with its eyebrow above it), or cut it. The philosophy section already has a strong pullquote ("A website is the first conversation…") — you don't need two.</div>
+  </div>
+
+  <div class="issue p2">
+    <div class="issue-label">P2 · No social proof for a service business</div>
+    <p>There are no client names, no testimonials with attribution, no logos, no GitHub link, no LinkedIn. For a freelancer targeting international clients, social proof is the trust signal that converts. The quoted "client" copy reads invented because it has no anchor.</p>
+    <div class="fix">→ Add one real testimonial from a real client with name + business, or a GitHub link showing real commit history. Either grounds the portfolio in reality.</div>
+  </div>
+
+  <h2 class="section-head">What's Actually Working</h2>
+  <div class="winner">
+    <strong>The typographic scale in the hero is legitimately commanding.</strong> The headline at ~100px with the mixed-weight contrast (light sans + crimson italic serif) is the strongest moment on the page — it has visual authority and personality. The cream/black palette is restrained and coherent. The case study copy voice (before the attribution problem) is more writerly than 95% of freelance portfolios. The pullquote "A website is the first conversation most customers have with a business" is genuinely good — it earns its full-screen placement.
+  </div>
+
+  <h2 class="section-head">Recommended First Action</h2>
+  <div class="big-rec">
+    <div class="rec-label">Single most impactful change</div>
+    <p>Add real screenshots to 3 case studies this week. Nothing else on this list matters until the work section has actual work in it. You have 11 deployed projects — screenshot them tonight, put the 3 best in. A portfolio with 3 real visible projects and zero placeholder boxes outperforms this current page by an order of magnitude for any hiring manager or international client.</p>
+  </div>
+</div>
