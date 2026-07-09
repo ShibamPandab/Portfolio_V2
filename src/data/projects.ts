@@ -1,12 +1,23 @@
 import type { FAQ, Feature } from '../types/content'
+import type { CategoryId } from './categories'
 
 export type { FAQ, Feature }
+
+export type ProjectStatus = 'in-development' | 'research' | 'planned'
 
 export type Project = {
   /** URL slug — the project lives at /projects/{slug} */
   slug: string
   /** Shown on the homepage as one of the strongest previews when true */
   featured: boolean
+  /** Which industry directory this appears under at /projects/{categoryId} */
+  categoryId: CategoryId
+  /**
+   * Absent (the default) means shipped and live. Set only for roadmap
+   * items that don't have a real case study yet — they render in the
+   * Future Archive on /projects instead of alongside finished work.
+   */
+  status?: ProjectStatus
   index: string
   name: string
   category: string
@@ -40,6 +51,7 @@ export type Project = {
 export const PROJECTS: Project[] = [
   {
     slug: 'bong-pizza',
+    categoryId: 'hospitality',
     featured: true,
     index: '01',
     name: 'Bong Pizza',
@@ -86,6 +98,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'umberto-north-end',
+    categoryId: 'hospitality',
     featured: false,
     index: '02',
     name: 'Umberto North End',
@@ -132,6 +145,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'ember-basil',
+    categoryId: 'hospitality',
     featured: false,
     index: '03',
     name: 'Ember & Basil',
@@ -178,6 +192,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'peyala-cafe',
+    categoryId: 'hospitality',
     featured: true,
     index: '04',
     name: 'Peyala Café',
@@ -224,6 +239,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'monolith-architecture',
+    categoryId: 'professional-services',
     featured: true,
     index: '05',
     name: 'Monolith Architecture',
@@ -270,6 +286,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'novacare-clinics',
+    categoryId: 'healthcare',
     featured: false,
     index: '06',
     name: 'NovaCare Clinics',
@@ -316,6 +333,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'aurum-academy',
+    categoryId: 'education',
     featured: false,
     index: '07',
     name: 'Aurum Academy',
@@ -362,6 +380,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'flowpilot-ai',
+    categoryId: 'technology',
     featured: false,
     index: '08',
     name: 'FlowPilot.Ai',
@@ -408,6 +427,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'my-portfolio',
+    categoryId: 'creative-portfolio',
     featured: false,
     index: '09',
     name: 'My Portfolio',
@@ -454,6 +474,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'eternity-films',
+    categoryId: 'creative-portfolio',
     featured: false,
     index: '10',
     name: 'Eternity Films',
@@ -500,6 +521,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'best-of-boston',
+    categoryId: 'luxury-commerce',
     featured: false,
     index: '11',
     name: 'Best of Boston',
@@ -546,6 +568,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'noir-etolie',
+    categoryId: 'luxury-commerce',
     featured: false,
     index: '12',
     name: 'Noir Étoile',
@@ -592,6 +615,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'lushaura-salon-spa',
+    categoryId: 'healthcare',
     featured: false,
     index: '13',
     name: 'LushAura Salon & Spa',
@@ -638,6 +662,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'finca-coffee',
+    categoryId: 'hospitality',
     featured: false,
     index: '14',
     name: 'Finca Coffee',
@@ -684,6 +709,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'bong-pizza-keshapat',
+    categoryId: 'hospitality',
     featured: false,
     index: '15',
     name: 'Bong Pizza Keshapat',
@@ -730,6 +756,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'cafe-elio',
+    categoryId: 'hospitality',
     featured: false,
     index: '16',
     name: 'Cafe Elio',
@@ -776,6 +803,7 @@ export const PROJECTS: Project[] = [
   },
   {
     slug: 'lnj-billing',
+    categoryId: 'technology',
     featured: false,
     index: '17',
     name: 'LNJ Billing',

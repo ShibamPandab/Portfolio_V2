@@ -1,14 +1,15 @@
 import { writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { PROJECTS } from '../src/data/projects'
+import { CATEGORIES } from '../src/data/categories'
 import { SITE } from '../src/constants/nav'
 
 /**
  * Generates public/sitemap.xml and public/robots.txt from the same
- * route sources the app itself renders — App.tsx's static routes
- * and the PROJECTS array — so a new project appended to
- * src/data/projects.ts appears in the sitemap on the next build
- * with zero manual edits here.
+ * route sources the app itself renders — App.tsx's static routes,
+ * CATEGORIES, and the PROJECTS array — so a new project or category
+ * appears in the sitemap on the next build with zero manual edits
+ * here.
  *
  * Runs before every `dev` and `build` (see package.json scripts).
  * Vite serves public/ as-is in dev and copies it into dist/ during
@@ -32,13 +33,24 @@ const STATIC_ROUTES: RouteEntry[] = [
   { path: '/contact', changefreq: 'monthly', priority: '0.7' },
 ]
 
-const PROJECT_ROUTES: RouteEntry[] = PROJECTS.map((project) => ({
-  path: `/projects/${project.slug}`,
-  changefreq: 'monthly',
-  priority: project.featured ? '0.7' : '0.6',
+const CATEGORY_ROUTES: RouteEntry[] = CATEGORIES.map((category) => ({
+  path: `/projects/${category.id}`,
+  changefreq: 'weekly',
+  priority: '0.75',
 }))
 
-const ALL_ROUTES = [...STATIC_ROUTES, ...PROJECT_ROUTES]
+// Roadmap items (status set) have no shipped case study yet — they
+// stay out of the sitemap the same way they stay out of the
+// industry directories, and only ever appear in the Future Archive.
+const PROJECT_ROUTES: RouteEntry[] = PROJECTS.filter((project) => !project.status).map(
+  (project) => ({
+    path: `/projects/${project.slug}`,
+    changefreq: 'monthly',
+    priority: project.featured ? '0.7' : '0.6',
+  }),
+)
+
+const ALL_ROUTES = [...STATIC_ROUTES, ...CATEGORY_ROUTES, ...PROJECT_ROUTES]
 const today = new Date().toISOString().slice(0, 10)
 
 function buildSitemap(): string {
@@ -70,5 +82,5 @@ const publicDir = resolve(import.meta.dirname, '../public')
 writeFileSync(resolve(publicDir, 'sitemap.xml'), buildSitemap())
 writeFileSync(resolve(publicDir, 'robots.txt'), buildRobots())
 
-console.log(`[generate-seo] sitemap.xml — ${ALL_ROUTES.length} routes (${STATIC_ROUTES.length} static + ${PROJECT_ROUTES.length} projects)`)
+console.log(`[generate-seo] sitemap.xml — ${ALL_ROUTES.length} routes (${STATIC_ROUTES.length} static + ${CATEGORY_ROUTES.length} categories + ${PROJECT_ROUTES.length} projects)`)
 console.log(`[generate-seo] robots.txt — sitemap points to ${SITE_URL}/sitemap.xml`)

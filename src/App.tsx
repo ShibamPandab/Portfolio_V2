@@ -6,8 +6,10 @@ import { Footer } from './components/layout/Footer'
 // Route-level code splitting — each page ships only when visited.
 const Home = lazy(() => import('./pages/Home').then((m) => ({ default: m.Home })))
 const Projects = lazy(() => import('./pages/Projects').then((m) => ({ default: m.Projects })))
-const ProjectDetails = lazy(() =>
-  import('./pages/ProjectDetails').then((m) => ({ default: m.ProjectDetails })),
+// /projects/:slug resolves to either a category directory or a case
+// study — see ProjectOrCategory for why this stays one dynamic route.
+const ProjectOrCategory = lazy(() =>
+  import('./pages/ProjectOrCategory').then((m) => ({ default: m.ProjectOrCategory })),
 )
 const Services = lazy(() => import('./pages/Services').then((m) => ({ default: m.Services })))
 const Process = lazy(() => import('./pages/Process').then((m) => ({ default: m.Process })))
@@ -29,7 +31,7 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/projects" element={<Projects />} />
-            <Route path="/projects/:slug" element={<ProjectDetails />} />
+            <Route path="/projects/:slug" element={<ProjectOrCategory />} />
             <Route path="/services" element={<Services />} />
             <Route path="/process" element={<Process />} />
             <Route path="/contact" element={<Contact />} />

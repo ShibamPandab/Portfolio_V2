@@ -3,6 +3,7 @@ import { Container } from '../components/ui/Container'
 import { ProjectSection } from '../components/work/ProjectSection'
 import { Seo } from '../components/seo/Seo'
 import { PROJECTS } from '../data/projects'
+import { CATEGORIES } from '../data/categories'
 
 export function ProjectDetails() {
   const { slug } = useParams<{ slug: string }>()
@@ -12,6 +13,13 @@ export function ProjectDetails() {
   if (!project) {
     return <Navigate to="/projects" replace />
   }
+
+  // Falls back to /projects only if a project's categoryId somehow
+  // doesn't match a known category — shouldn't happen, but a project
+  // page should never render a breadcrumb to nowhere.
+  const category = CATEGORIES.find((c) => c.id === project.categoryId)
+  const backHref = category ? `/projects/${category.id}` : '/projects'
+  const backLabel = category ? `← ${category.label}` : '← All Projects'
 
   const prev = PROJECTS[(index - 1 + PROJECTS.length) % PROJECTS.length]
   const next = PROJECTS[(index + 1) % PROJECTS.length]
@@ -28,8 +36,8 @@ export function ProjectDetails() {
         type="article"
       />
       <Container className="py-12 md:py-16">
-        <Link to="/projects" className="eyebrow text-ink-soft transition-colors duration-300 hover:text-red">
-          ← All Projects
+        <Link to={backHref} className="eyebrow text-ink-soft transition-colors duration-300 hover:text-red">
+          {backLabel}
         </Link>
 
         <ProjectSection project={project} />
