@@ -9,22 +9,22 @@ import { ProjectContent } from './ProjectContent'
  * a single "View Case Study" CTA. The full Challenge/Solution/
  * Features/FAQ depth lives only on the dedicated case study page at
  * /projects/{slug}, so the homepage stays light and conversion-paced.
+ *
+ * Text/image split is 38/62 (fr units, so the ratio holds regardless
+ * of the gap) — the screenshot carries most of the visual weight,
+ * with just enough text column to read the pitch at a glance.
  */
 export function ProjectPreview({ project, flip = false }: { project: Project; flip?: boolean }) {
   return (
     <article className="border-t-2 border-ink py-20 first:border-t-0 first:pt-0 md:py-28">
-      <div className="grid grid-cols-12 gap-x-8 gap-y-10">
-        <div
-          className={cn(
-            'col-span-12 flex flex-col gap-8 md:col-span-5',
-            flip ? 'md:order-2 md:col-start-8' : 'md:col-start-1',
-          )}
-        >
+      <div className="grid grid-cols-1 gap-x-10 gap-y-10 md:grid-cols-[38fr_62fr] md:items-center">
+        <div className={cn('flex flex-col gap-8', flip && 'md:order-2')}>
           <ProjectHeader
             index={project.index}
             name={project.name}
             category={project.category}
             quote={project.quote}
+            compact
           />
           <ProjectContent
             description={project.description}
@@ -33,12 +33,7 @@ export function ProjectPreview({ project, flip = false }: { project: Project; fl
           />
         </div>
 
-        <div
-          className={cn(
-            'col-span-12 md:col-span-7',
-            flip ? 'md:order-1 md:col-start-1' : 'md:col-start-6',
-          )}
-        >
+        <div className={cn(flip && 'md:order-1')}>
           <ProjectImage
             label={`${project.name} — project preview`}
             src={`/projects/${project.slug}.png`}

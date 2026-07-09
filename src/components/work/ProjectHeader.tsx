@@ -13,8 +13,9 @@ export function ProjectHeader({
   name: string
   category: string
   quote: string
-  /** Slightly smaller type scale — used on the case-study page, where
-   *  the text column is narrower and the screenshot carries the section. */
+  /** Slightly smaller type scale — used wherever the text column runs
+   *  narrower than half the row (the case-study page, and the homepage
+   *  featured previews) so the screenshot carries more visual weight. */
   compact?: boolean
 }) {
   return (
