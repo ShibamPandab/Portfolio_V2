@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "tsc -b && vite build",
+    "dev": "npm run generate:seo && vite",
+    "build": "npm run generate:seo && tsc -b && vite build",
+    "generate:seo": "tsx scripts/generate-seo.ts",
     "lint": "oxlint",
     "preview": "vite preview"
   },
@@ -26,6 +27,7 @@
     "oxlint": "^1.69.0",
     "postcss": "^8.5.15",
     "tailwindcss": "^4.3.1",
+    "tsx": "^4.23.0",
     "typescript": "~6.0.2",
     "vite": "^8.1.0"
   }
