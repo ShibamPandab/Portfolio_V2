@@ -2,7 +2,7 @@ import type { Project } from '../../data/projects'
 import { cn } from '../../lib/utils'
 import { Reveal } from '../ui/Reveal'
 import { ProjectHeader } from './ProjectHeader'
-import { ProjectImage } from './ProjectImage'
+import { ProjectShowcaseImage } from './ProjectShowcaseImage'
 import { ChallengeBlock } from './ChallengeBlock'
 import { SolutionBlock } from './SolutionBlock'
 import { DesignDecisionList } from './DesignDecisionList'
@@ -15,11 +15,11 @@ export function ProjectSection({ project, flip = false }: { project: Project; fl
   return (
     <article className="border-t-2 border-ink py-20 first:border-t-0 first:pt-0 md:py-32">
       {/* Header + Image — alternates sides per project */}
-      <div className="grid grid-cols-12 gap-x-8 gap-y-12">
+      <div className="grid grid-cols-12 gap-x-8 gap-y-12 md:items-center">
         <div
           className={cn(
-            'col-span-12 flex flex-col gap-8 md:col-span-5',
-            flip ? 'md:order-2 md:col-start-8' : 'md:col-start-1',
+            'col-span-12 flex flex-col gap-8 md:col-span-4',
+            flip ? 'md:order-2 md:col-start-9' : 'md:col-start-1',
           )}
         >
           <ProjectHeader
@@ -27,19 +27,20 @@ export function ProjectSection({ project, flip = false }: { project: Project; fl
             name={project.name}
             category={project.category}
             quote={project.quote}
+            compact
           />
           <Reveal delay={0.12}>
-            <p className="max-w-md text-lg leading-relaxed text-ink-soft">{project.description}</p>
+            <p className="max-w-sm text-base leading-relaxed text-ink-soft">{project.description}</p>
           </Reveal>
         </div>
 
         <div
           className={cn(
-            'col-span-12 md:col-span-7',
-            flip ? 'md:order-1 md:col-start-1' : 'md:col-start-6',
+            'col-span-12 md:col-span-8',
+            flip ? 'md:order-1 md:col-start-1' : 'md:col-start-5',
           )}
         >
-          <ProjectImage
+          <ProjectShowcaseImage
             label={`${project.name} — project preview`}
             src={`/projects/${project.slug}.png`}
           />
