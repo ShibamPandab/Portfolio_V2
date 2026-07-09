@@ -1,4 +1,4 @@
-import { useEffect, useState, type FormEvent } from 'react'
+import { useState, type FormEvent } from 'react'
 import { Container } from '../components/ui/Container'
 import { Eyebrow } from '../components/ui/Eyebrow'
 import { Reveal } from '../components/ui/Reveal'
@@ -7,6 +7,7 @@ import { EditorialList } from '../components/ui/EditorialList'
 import { FAQAccordion } from '../components/ui/FAQAccordion'
 import { Button } from '../components/ui/Button'
 import { SocialLinks } from '../components/ui/SocialLinks'
+import { Seo } from '../components/seo/Seo'
 import { SITE } from '../constants/nav'
 import {
   NEXT_STEPS,
@@ -29,10 +30,6 @@ export function Contact() {
     message: '',
   })
 
-  useEffect(() => {
-    document.title = 'Contact — Shibam Pandab'
-  }, [])
-
   function update<K extends keyof typeof form>(key: K, value: string) {
     setForm((f) => ({ ...f, [key]: value }))
   }
@@ -54,6 +51,11 @@ export function Contact() {
 
   return (
     <>
+      <Seo
+        title="Contact — Shibam Pandab"
+        description="Whether you have an idea, an existing business, or simply want to explore possibilities, you're welcome to get in touch."
+        path="/contact"
+      />
       {/* Hero */}
       <section className="border-b-2 border-ink pt-32">
         <Container className="py-20 md:py-28">

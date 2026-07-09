@@ -1,19 +1,13 @@
-import { useEffect } from 'react'
 import { Link, Navigate, useParams } from 'react-router-dom'
 import { Container } from '../components/ui/Container'
 import { ProjectSection } from '../components/work/ProjectSection'
+import { Seo } from '../components/seo/Seo'
 import { PROJECTS } from '../data/projects'
 
 export function ProjectDetails() {
   const { slug } = useParams<{ slug: string }>()
   const index = PROJECTS.findIndex((p) => p.slug === slug)
   const project = PROJECTS[index]
-
-  useEffect(() => {
-    if (project) {
-      document.title = `${project.name} — Case Study — Shibam Pandab`
-    }
-  }, [project])
 
   if (!project) {
     return <Navigate to="/projects" replace />
@@ -24,6 +18,15 @@ export function ProjectDetails() {
 
   return (
     <section className="border-b-2 border-ink pt-32">
+      {/* Every field here is read straight off the matched Project —
+          nothing about this case study's metadata is written twice. */}
+      <Seo
+        title={`${project.name} — Case Study — Shibam Pandab`}
+        description={project.description}
+        path={`/projects/${project.slug}`}
+        image={`/projects/${project.slug}.png`}
+        type="article"
+      />
       <Container className="py-12 md:py-16">
         <Link to="/projects" className="eyebrow text-ink-soft transition-colors duration-300 hover:text-red">
           ← All Projects

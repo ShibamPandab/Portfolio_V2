@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Container } from '../components/ui/Container'
 import { Eyebrow } from '../components/ui/Eyebrow'
 import { Reveal } from '../components/ui/Reveal'
@@ -6,6 +5,7 @@ import { AnimatedText } from '../components/ui/AnimatedText'
 import { EditorialList } from '../components/ui/EditorialList'
 import { FAQAccordion } from '../components/ui/FAQAccordion'
 import { Button } from '../components/ui/Button'
+import { Seo } from '../components/seo/Seo'
 import {
   SERVICES,
   DELIVERABLES,
@@ -19,12 +19,13 @@ import {
 } from '../data/services'
 
 export function Services() {
-  useEffect(() => {
-    document.title = 'Services — Shibam Pandab'
-  }, [])
-
   return (
     <>
+      <Seo
+        title="Services — Shibam Pandab"
+        description="Premium, design-led websites for businesses that take their presentation as seriously as their product."
+        path="/services"
+      />
       {/* 01 — Editorial Hero */}
       <section className="border-b-2 border-ink pt-32">
         <Container className="py-20 md:py-28">

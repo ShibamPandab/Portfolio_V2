@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import { Container } from '../components/ui/Container'
 import { Eyebrow } from '../components/ui/Eyebrow'
 import { Reveal } from '../components/ui/Reveal'
@@ -6,6 +5,7 @@ import { AnimatedText } from '../components/ui/AnimatedText'
 import { EditorialList } from '../components/ui/EditorialList'
 import { FeatureGrid } from '../components/ui/FeatureGrid'
 import { Button } from '../components/ui/Button'
+import { Seo } from '../components/seo/Seo'
 import {
   PHILOSOPHY_POINTS,
   STAGES,
@@ -18,12 +18,13 @@ import {
 } from '../data/process'
 
 export function Process() {
-  useEffect(() => {
-    document.title = 'Process — Shibam Pandab'
-  }, [])
-
   return (
     <>
+      <Seo
+        title="Process — Shibam Pandab"
+        description="Every project follows a considered process, designed to understand the business before designing anything."
+        path="/process"
+      />
       {/* Hero */}
       <section className="border-b-2 border-ink pt-32">
         <Container className="py-20 md:py-28">

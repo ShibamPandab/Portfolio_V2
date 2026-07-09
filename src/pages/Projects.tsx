@@ -1,17 +1,18 @@
-import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { Container } from '../components/ui/Container'
 import { Eyebrow } from '../components/ui/Eyebrow'
 import { Reveal } from '../components/ui/Reveal'
 import { PROJECTS } from '../data/projects'
+import { Seo } from '../components/seo/Seo'
 
 export function Projects() {
-  useEffect(() => {
-    document.title = 'All Projects — Shibam Pandab'
-  }, [])
-
   return (
     <section className="min-h-screen border-b-2 border-ink pt-32">
+      <Seo
+        title="All Projects — Shibam Pandab"
+        description="The full list of every project — restaurants, cafés, studios, and startups — each with a complete case study covering challenge, solution, and design decisions."
+        path="/projects"
+      />
       <Container className="py-20 md:py-28">
         <Reveal>
           <Eyebrow index="—" label="All Projects" />

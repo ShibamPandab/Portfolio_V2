@@ -1,6 +1,7 @@
 import { writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import { PROJECTS } from '../src/data/projects'
+import { SITE } from '../src/constants/nav'
 
 /**
  * Generates public/sitemap.xml and public/robots.txt from the same
@@ -15,7 +16,7 @@ import { PROJECTS } from '../src/data/projects'
  * /robots.txt.
  */
 
-const SITE_URL = process.env.SITE_URL ?? 'https://portfolio-v2-tau-eosin.vercel.app'
+const SITE_URL = process.env.SITE_URL ?? SITE.url
 
 type RouteEntry = {
   path: string
