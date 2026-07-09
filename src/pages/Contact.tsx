@@ -6,6 +6,7 @@ import { AnimatedText } from '../components/ui/AnimatedText'
 import { EditorialList } from '../components/ui/EditorialList'
 import { FAQAccordion } from '../components/ui/FAQAccordion'
 import { Button } from '../components/ui/Button'
+import { SocialLinks } from '../components/ui/SocialLinks'
 import { SITE } from '../constants/nav'
 import {
   NEXT_STEPS,
@@ -14,12 +15,6 @@ import {
   TIMELINE_OPTIONS,
   CONTACT_FAQ,
 } from '../data/contact'
-
-const SOCIALS = [
-  { label: 'Instagram', href: '#' },
-  { label: 'LinkedIn', href: '#' },
-  { label: 'GitHub', href: '#' },
-]
 
 const inputStyles =
   'border-b-2 border-ink/30 bg-transparent py-2 text-ink placeholder:text-ink-soft/50 focus:border-red focus:outline-none transition-colors duration-300'
@@ -228,17 +223,7 @@ export function Contact() {
                 </div>
                 <div className="flex flex-col gap-3">
                   <span className="eyebrow text-red">Elsewhere</span>
-                  <div className="flex flex-col gap-2">
-                    {SOCIALS.map((s) => (
-                      <a
-                        key={s.label}
-                        href={s.href}
-                        className="eyebrow text-ink-soft transition-colors duration-300 hover:text-red"
-                      >
-                        {s.label}
-                      </a>
-                    ))}
-                  </div>
+                  <SocialLinks />
                 </div>
               </div>
             </Reveal>

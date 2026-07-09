@@ -18,7 +18,7 @@ export function ProjectCTA({
           </Button>
         )}
         {liveHref && (
-          <Button href={liveHref} variant="secondary">
+          <Button href={liveHref} variant="secondary" external>
             View Live
           </Button>
         )}

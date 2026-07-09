@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { Container } from '../ui/Container'
+import { SocialLinks } from '../ui/SocialLinks'
 import { NAV_LINKS, SITE } from '../../constants/nav'
 
 export function Footer() {
@@ -34,6 +35,7 @@ export function Footer() {
           >
             {SITE.email}
           </a>
+          <SocialLinks />
           <span className="eyebrow text-ink-soft/60">
             © {new Date().getFullYear()} {SITE.name}
           </span>
