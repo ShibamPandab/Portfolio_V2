@@ -39,7 +39,10 @@ export function ProjectPreview({ project, flip = false }: { project: Project; fl
             flip ? 'md:order-1 md:col-start-1' : 'md:col-start-6',
           )}
         >
-          <ProjectImage label={`${project.name} — project preview`} />
+          <ProjectImage
+            label={`${project.name} — project preview`}
+            src={`/projects/${project.slug}.png`}
+          />
         </div>
       </div>
     </article>

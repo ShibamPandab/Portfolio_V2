@@ -2,13 +2,24 @@ import { Reveal } from '../ui/Reveal'
 import { MediaFrame } from '../ui/MediaFrame'
 
 /**
- * Wraps MediaFrame so a real <img loading="lazy"> can drop in here
- * later without touching ProjectSection's layout logic.
+ * Renders the real project screenshot when `src` is provided, falling
+ * back to the MediaFrame placeholder for projects without one yet.
  */
-export function ProjectImage({ label }: { label: string }) {
+export function ProjectImage({ label, src }: { label: string; src?: string }) {
   return (
     <Reveal delay={0.05}>
-      <MediaFrame label={label} />
+      {src ? (
+        <div className="relative aspect-[4/3] w-full overflow-hidden border-2 border-ink bg-cream-dim md:aspect-[16/11]">
+          <img
+            src={src}
+            alt={label}
+            loading="lazy"
+            className="h-full w-full object-cover object-top"
+          />
+        </div>
+      ) : (
+        <MediaFrame label={label} />
+      )}
     </Reveal>
   )
 }
