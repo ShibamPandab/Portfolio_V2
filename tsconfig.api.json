@@ -6,10 +6,13 @@
     "types": ["node"],
     "skipLibCheck": true,
 
-    /* Bundler mode */
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "allowImportingTsExtensions": true,
+    /* Matches how Vercel's Serverless Function builder actually
+       resolves api/*.ts (Node ESM rules, not a bundler) — relative
+       imports need explicit .js extensions here, same as Vercel
+       enforces at deploy time. Using "bundler" mode here previously
+       let that error pass tsc locally while still failing on Vercel. */
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "verbatimModuleSyntax": true,
     "moduleDetection": "force",
     "noEmit": true,

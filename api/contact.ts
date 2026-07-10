@@ -6,7 +6,7 @@ import {
   isRateLimited,
   validateContactPayload,
   type ContactPayload,
-} from './_lib/contact'
+} from './_lib/contact.js'
 
 /**
  * POST /api/contact — the only thing the Contact page's form talks
