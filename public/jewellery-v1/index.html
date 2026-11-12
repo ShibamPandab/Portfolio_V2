@@ -1,0 +1,703 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Élune Atelier</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Élune Atelier — a v1 jewellery showcase and journal: seasonal editions, categories, bestsellers and news from the atelier.">
+<meta name="theme-color" content="#f6f6f3">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter+Tight:wght@300;400;500;600&display=swap">
+<style>
+/* Layout concept: an editorial lookbook printed on gallery-white card — condensed serif
+   headlines, hairline captions set sideways like museum labels, and every piece shown
+   as a studio still on its own tinted plinth. One accent: the periwinkle "frame". */
+:root{
+  --paper:#f6f6f3;      /* page ground, a cool gallery white */
+  --card:#ffffff;       /* panels */
+  --ink:#151514;        /* type */
+  --mute:#7d7c77;       /* captions */
+  --line:#dddcd6;       /* hairlines */
+  --frame:#dde1f6;      /* periwinkle accent band */
+  --gold:#b78f3c;       /* metal, links on hover */
+  --display:"Instrument Serif","Bodoni 72","Didot",Georgia,serif;
+  --text:"Inter Tight","Helvetica Neue",Arial,sans-serif;
+  --gut:max(16px, env(safe-area-inset-left, 0px));
+  --gutR:max(16px, env(safe-area-inset-right, 0px));
+  color-scheme:light;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 15px/1.55 var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--paper)}
+img,svg{max-width:100%;display:block}
+button{font:inherit;color:inherit;background:none;border:0;padding:0;cursor:pointer}
+a{color:inherit}
+:focus-visible{outline:1.5px solid var(--ink);outline-offset:3px}
+.wrap{padding-left:var(--gut);padding-right:var(--gutR);max-width:1320px;margin:0 auto}
+.label{font:500 10.5px/1.3 var(--text);letter-spacing:.14em;text-transform:uppercase;color:var(--mute)}
+.display{font-family:var(--display);font-weight:400;text-transform:uppercase;line-height:.88;letter-spacing:-.005em;text-wrap:balance;margin:0}
+.serif{font-family:var(--display)}
+.price{font-family:var(--display);font-size:26px;line-height:1;font-variant-numeric:tabular-nums}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+
+/* ---------- header ---------- */
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;gap:20px;height:58px}
+.brand{font-family:var(--display);font-size:24px;letter-spacing:.02em;text-decoration:none;text-transform:uppercase;white-space:nowrap}
+.brand sup{font-family:var(--text);font-size:9px;letter-spacing:0;margin-left:2px}
+.nav{display:none;gap:26px;margin-left:auto}
+.nav a{font:500 11px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;padding:6px 0;border-bottom:1px solid transparent}
+.nav a:hover{border-color:var(--ink)}
+.top-actions{margin-left:auto;display:flex;align-items:center;gap:16px}
+.saved{font:500 11px/1 var(--text);letter-spacing:.12em;text-transform:uppercase}
+.saved b{font-weight:500;display:inline-grid;place-items:center;min-width:20px;height:20px;border:1px solid var(--ink);border-radius:20px;margin-left:6px;font-variant-numeric:tabular-nums}
+.burger{width:28px;height:28px;display:grid;place-content:center;gap:6px}
+.burger i{display:block;width:22px;height:1px;background:var(--ink)}
+@media (min-width:900px){.nav{display:flex}.top-actions{margin-left:28px}.burger{display:none}}
+
+/* ---------- ticker ---------- */
+.ticker{background:var(--ink);color:var(--paper);overflow:hidden;white-space:nowrap}
+.ticker-track{display:inline-flex;gap:48px;padding:9px 0;animation:tick 48s linear infinite}
+.ticker span{font:500 10.5px/1 var(--text);letter-spacing:.14em;text-transform:uppercase}
+.ticker span::before{content:"✦";margin-right:14px;color:var(--frame)}
+@keyframes tick{to{transform:translateX(-50%)}}
+
+/* ---------- hero ---------- */
+.hero{padding-block:28px 56px}
+.hero-grid{display:grid;gap:28px}
+.hero h1{font-size:clamp(46px,13.2vw,132px)}
+.hero h1 em{font-style:italic;text-transform:none;letter-spacing:-.01em}
+.hero-meta{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-top:20px}
+.hero-meta p{margin:0;max-width:30ch;color:var(--mute);font-size:14px}
+.stage{position:relative;display:grid;grid-template-columns:1fr auto;gap:14px;align-items:center}
+.stage-frame{position:relative;padding-block:46px}
+.arc{position:absolute;left:50%;width:52%;transform:translateX(-50%);height:30px;color:var(--ink)}
+.arc.t{top:0}.arc.b{bottom:0;transform:translateX(-50%) scaleY(-1)}
+.stage-photo{aspect-ratio:4/5;max-width:100%;background:radial-gradient(120% 90% at 70% 85%,#8a5c45 0%,#4c3127 38%,#1c1513 70%,#0f0d0d 100%);overflow:hidden;position:relative}
+.stage-photo::after{content:"";position:absolute;inset:auto -20% -30% 10%;height:70%;border-radius:50%;background:radial-gradient(closest-side,rgba(214,160,128,.55),transparent);filter:blur(6px)}
+.stage-photo svg{position:absolute;inset:0;width:100%;height:100%;z-index:1;transition:opacity .5s ease,transform .8s cubic-bezier(.2,.7,.2,1)}
+.stage-photo.swap svg{opacity:0;transform:scale(.96)}
+.vcap{writing-mode:vertical-rl;transform:rotate(180deg);font:500 9.5px/1.4 var(--text);letter-spacing:.12em;text-transform:uppercase;max-height:300px}
+.stage-ctrl{display:flex;align-items:center;justify-content:space-between;margin-top:14px;gap:12px}
+.pager{display:inline-flex;align-items:center;gap:10px;font:500 11px/1 var(--text);letter-spacing:.1em;font-variant-numeric:tabular-nums}
+.pager button{width:32px;height:32px;display:grid;place-items:center;border:1px solid var(--line);border-radius:50%;transition:border-color .2s}
+.pager button:hover{border-color:var(--ink)}
+.stage-name{font-family:var(--display);font-size:22px;line-height:1.05}
+@media (min-width:900px){
+  .hero{padding-block:56px 88px}
+  .hero-grid{grid-template-columns:1.25fr 1fr;align-items:center;gap:56px}
+  .stage-photo{max-height:620px}
+}
+
+/* ---------- section scaffolding ---------- */
+.sec{padding-block:64px;border-top:1px solid var(--line)}
+.sec-head{display:flex;justify-content:space-between;align-items:end;gap:16px;margin-bottom:28px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(40px,10vw,84px)}
+.btn{display:inline-flex;align-items:center;gap:10px;height:46px;padding:0 22px;border:1px solid var(--ink);font:500 11px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;transition:background .2s,color .2s}
+.btn:hover{background:var(--ink);color:var(--paper)}
+.btn.solid{background:var(--ink);color:var(--paper)}
+.btn.solid:hover{background:transparent;color:var(--ink)}
+.link{font:500 11px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;text-decoration:none;border-bottom:1px solid currentColor;padding-bottom:4px}
+
+/* ---------- product card ---------- */
+.rail{display:grid;grid-auto-flow:column;grid-auto-columns:min(74%,300px);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:14px;scrollbar-width:none;overscroll-behavior-x:contain}
+.rail::-webkit-scrollbar{display:none}
+.card{scroll-snap-align:start;background:var(--card);text-align:left;display:flex;flex-direction:column;min-width:0}
+.card .ph{aspect-ratio:4/5;display:grid;place-items:center;position:relative;overflow:hidden}
+.card .ph svg{width:72%;height:72%;transition:transform .7s cubic-bezier(.2,.7,.2,1)}
+.card:hover .ph svg{transform:scale(1.06) rotate(-2deg)}
+.card .meta{display:grid;grid-template-columns:1fr auto;gap:4px 12px;padding:14px 14px 16px;align-items:end}
+.card .meta .label{grid-column:1/-1}
+.card .nm{font-size:13.5px;line-height:1.35}
+.card .tag{position:absolute;top:12px;left:12px;font:500 9.5px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;background:var(--card);padding:6px 8px}
+.rail-foot{display:flex;justify-content:space-between;align-items:center;margin-top:10px}
+
+/* ---------- categories ---------- */
+.cats-grid{display:grid;gap:28px}
+.acc{border-top:1px solid var(--ink)}
+.acc-item{border-bottom:1px solid var(--line)}
+.acc-btn{width:100%;display:flex;align-items:center;gap:14px;padding:16px 0;text-align:left}
+.acc-btn .sym{width:14px;font-size:18px;line-height:1;color:var(--mute)}
+.acc-btn .t{font-family:var(--display);font-size:clamp(28px,7vw,40px);line-height:1;text-transform:lowercase}
+.acc-btn .n{margin-left:auto;font:500 11px/1 var(--text);letter-spacing:.1em;color:var(--mute);font-variant-numeric:tabular-nums}
+.acc-btn[aria-expanded="true"] .t{font-style:italic}
+.acc-panel{display:grid;grid-template-rows:0fr;transition:grid-template-rows .45s ease}
+.acc-panel>div{overflow:hidden}
+.acc-item.open .acc-panel{grid-template-rows:1fr}
+.acc-panel p{margin:0 0 10px 28px;max-width:44ch;color:var(--mute);font-size:14px}
+.acc-panel .link{margin:0 0 20px 28px;display:inline-block}
+@media (min-width:900px){.cats-grid{grid-template-columns:minmax(0,.9fr) minmax(0,1.4fr);gap:56px}}
+
+/* ---------- philosophy ---------- */
+.philo{display:grid;gap:28px}
+.principle{min-height:170px}
+.principle .serif{font-size:clamp(26px,6vw,40px);line-height:1.08;margin:0 0 14px;text-wrap:balance}
+.principle p{margin:0;color:var(--mute);max-width:52ch}
+.progress{display:flex;align-items:center;gap:14px;margin-top:22px}
+.bar{flex:1;height:1px;background:var(--line);position:relative}
+.bar i{position:absolute;left:0;top:-1px;height:3px;background:var(--ink);transition:width .5s ease}
+.philo-tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tile{position:relative;aspect-ratio:3/4;display:grid;place-items:center;overflow:hidden}
+.tile svg{width:70%}
+.tile .vcap{position:absolute;right:10px;bottom:12px;color:var(--ink)}
+@media (min-width:900px){.philo{grid-template-columns:1fr 1fr;gap:56px;align-items:center}}
+
+/* ---------- design focus ---------- */
+.focus{display:grid;background:var(--card)}
+.focus-art{background:linear-gradient(160deg,#efe8db,#e1d5bf);aspect-ratio:1/1;display:grid;place-items:center;max-width:100%}
+.focus-art svg{width:74%}
+.focus-copy{padding:28px 22px 32px;display:grid;gap:18px;align-content:center}
+.focus-copy h2{font-size:clamp(40px,10vw,76px)}
+.specs{display:grid;grid-template-columns:auto 1fr;border-top:1px solid var(--line);margin:0}
+.specs dt,.specs dd{margin:0;padding:10px 0;border-bottom:1px solid var(--line);font-size:13px}
+.specs dt{color:var(--mute);padding-right:24px}
+.specs dd{text-align:right;font-variant-numeric:tabular-nums}
+@media (min-width:900px){.focus{grid-template-columns:1.1fr 1fr}.focus-copy{padding:56px}}
+
+/* ---------- bestsellers ---------- */
+.tabs{display:flex;gap:22px;overflow-x:auto;scrollbar-width:none;margin-bottom:22px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{font-family:var(--display);font-size:26px;line-height:1.2;color:var(--mute);white-space:nowrap;border-bottom:1px solid transparent;transition:color .2s}
+.tab[aria-selected="true"]{color:var(--ink);border-color:var(--ink)}
+
+/* ---------- journal ---------- */
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px}
+.chip{height:34px;padding:0 14px;border:1px solid var(--line);border-radius:40px;font:500 10.5px/1 var(--text);letter-spacing:.12em;text-transform:uppercase;transition:all .2s}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.journal{display:grid;gap:28px}
+.feature{display:grid;gap:16px;text-align:left}
+.feature .ph{aspect-ratio:16/11;display:grid;place-items:center;overflow:hidden;max-width:100%}
+.feature .ph svg{width:46%;transition:transform .8s cubic-bezier(.2,.7,.2,1)}
+.feature:hover .ph svg{transform:scale(1.05)}
+.feature h3{font-family:var(--display);font-weight:400;font-size:clamp(30px,7vw,46px);line-height:1.02;margin:0;text-wrap:balance}
+.feature p{margin:0;color:var(--mute);max-width:56ch}
+.posts{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.post{border-bottom:1px solid var(--line)}
+.post button{width:100%;display:grid;grid-template-columns:62px 1fr auto;gap:14px;padding:16px 0;text-align:left;align-items:start}
+.post .d{font-variant-numeric:tabular-nums;font-size:12px;line-height:1.3}
+.post .d b{display:block;font-family:var(--display);font-weight:400;font-size:30px;line-height:.95}
+.post .h{font-family:var(--display);font-size:22px;line-height:1.12;margin:4px 0 0}
+.post .arr{font-size:18px;transition:transform .25s}
+.post button:hover .arr{transform:translateX(4px)}
+.empty{padding:24px 0;color:var(--mute)}
+@media (min-width:900px){.journal{grid-template-columns:1.1fr 1fr;gap:56px}}
+
+/* ---------- editions / newsletter ---------- */
+.editions{background:var(--frame)}
+.ed-grid{display:grid;gap:28px;padding-block:64px}
+.ed-grid h2{font-size:clamp(40px,10vw,84px)}
+.ed-list{list-style:none;margin:0;padding:0;border-top:1px solid var(--ink)}
+.ed-list li{display:grid;grid-template-columns:auto 1fr auto;gap:16px;padding:14px 0;border-bottom:1px solid rgba(21,21,20,.18);align-items:baseline;font-variant-numeric:tabular-nums}
+.ed-list .serif{font-size:22px}
+.form{display:flex;gap:0;margin-top:8px;flex-wrap:wrap}
+.form input{flex:1 1 200px;min-width:0;height:48px;border:1px solid var(--ink);border-right:0;background:var(--card);padding:0 14px;font:inherit;color:var(--ink);border-radius:0}
+.form .btn{height:48px}
+.form-msg{min-height:22px;font-size:13px;margin:10px 0 0}
+@media (max-width:420px){.form input{border-right:1px solid var(--ink)}.form .btn{width:100%;justify-content:center;margin-top:8px}}
+@media (min-width:900px){.ed-grid{grid-template-columns:1fr 1fr;gap:56px;padding-block:96px}}
+
+/* ---------- footer ---------- */
+footer{padding-block:48px 40px;border-top:1px solid var(--line)}
+.foot{display:grid;grid-template-columns:1fr 1fr;gap:28px}
+.foot h4{margin:0 0 10px}
+.foot ul{list-style:none;margin:0;padding:0;display:grid;gap:6px;font-size:13.5px}
+.foot a{text-decoration:none}.foot a:hover{text-decoration:underline}
+.mark{font-family:var(--display);text-transform:uppercase;font-size:clamp(64px,22vw,260px);line-height:.8;margin-top:40px;letter-spacing:-.01em}
+.legal{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-top:18px}
+@media (min-width:900px){.foot{grid-template-columns:2fr 1fr 1fr 1fr}}
+
+/* ---------- sheets (dialogs) ---------- */
+dialog{border:0;padding:0;background:var(--card);color:var(--ink);max-width:min(560px,100%);width:100%;max-height:92vh;margin:auto auto 0;overflow:auto}
+dialog::backdrop{background:rgba(21,21,20,.45);backdrop-filter:blur(2px)}
+dialog[open]{animation:up .4s cubic-bezier(.2,.7,.2,1)}
+@keyframes up{from{transform:translateY(40px);opacity:0}}
+@media (min-width:700px){dialog{margin:auto}}
+.sheet-close{position:sticky;top:0;display:flex;justify-content:flex-end;padding:12px 14px;background:var(--card);z-index:2}
+.sheet-close button{font:500 11px/1 var(--text);letter-spacing:.14em;text-transform:uppercase;padding:8px 0}
+.sheet-art{aspect-ratio:1/1;display:grid;place-items:center;max-width:100%}
+.sheet-art svg{width:66%}
+.sheet-body{padding:22px 22px 28px;display:grid;gap:16px}
+.sheet-body h3{font-family:var(--display);font-weight:400;font-size:38px;line-height:1;margin:0}
+.sheet-body p{margin:0;color:var(--mute)}
+.sizes{display:flex;gap:8px;flex-wrap:wrap}
+.size{min-width:44px;height:40px;padding:0 10px;border:1px solid var(--line);font-size:13px;font-variant-numeric:tabular-nums}
+.size[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--paper)}
+.sheet-actions{display:flex;gap:10px;flex-wrap:wrap}
+.sheet-actions .btn{flex:1 1 160px;justify-content:center}
+.article h3{font-size:clamp(32px,8vw,44px)}
+.article .body p{color:var(--ink);margin:0 0 12px}
+.article table{border-collapse:collapse;width:100%;font-size:13px;font-variant-numeric:tabular-nums}
+.article th,.article td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left}
+.article th{font-weight:500;color:var(--mute)}
+.tbl{overflow-x:auto}
+
+/* menu */
+#menu{margin:0 0 auto auto;max-width:420px;height:100%;max-height:none}
+#menu nav{display:grid;padding:8px 22px 28px}
+#menu nav a{font-family:var(--display);font-size:44px;line-height:1.1;text-decoration:none;text-transform:uppercase;border-bottom:1px solid var(--line);padding:8px 0}
+
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translate(-50%,20px);background:var(--ink);color:var(--paper);padding:12px 18px;font-size:13px;opacity:0;transition:all .3s;pointer-events:none;z-index:80;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+/* reveal: visible at rest, gentle lift when JS + motion allowed */
+.js .rv{transition:opacity .9s ease,transform .9s cubic-bezier(.2,.7,.2,1)}
+.js .rv.pre{opacity:.001;transform:translateY(24px)}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .js .rv.pre{opacity:1;transform:none}
+}
+</style>
+</head>
+<body>
+<!-- shared gradients for every illustrated piece -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6e2a8"/><stop offset=".35" stop-color="#d4a94f"/>
+      <stop offset=".7" stop-color="#9c7425"/><stop offset="1" stop-color="#e8c873"/>
+    </linearGradient>
+    <linearGradient id="silver" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/><stop offset=".4" stop-color="#c9ccd1"/>
+      <stop offset=".75" stop-color="#8d9197"/><stop offset="1" stop-color="#e6e8eb"/>
+    </linearGradient>
+    <radialGradient id="pearl" cx=".35" cy=".3" r=".75">
+      <stop offset="0" stop-color="#ffffff"/><stop offset=".45" stop-color="#f1ece4"/>
+      <stop offset=".8" stop-color="#cfc6ba"/><stop offset="1" stop-color="#a99f93"/>
+    </radialGradient>
+    <radialGradient id="glass" cx=".35" cy=".3" r=".8">
+      <stop offset="0" stop-color="#f2ffb0"/><stop offset=".5" stop-color="#8fd13d"/><stop offset="1" stop-color="#2f7a1d"/>
+    </radialGradient>
+  </defs>
+</svg>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" aria-label="Élune Atelier, home">Élune<sup>©</sup></a>
+    <nav class="nav" aria-label="Primary">
+      <a href="#catalogue">Catalogue</a><a href="#new-in">New in</a><a href="#philosophy">Philosophy</a><a href="#journal">Journal</a><a href="#editions">Editions</a>
+    </nav>
+    <div class="top-actions">
+      <button class="saved" id="savedBtn" type="button" aria-label="Saved pieces">Saved<b id="savedCount">0</b></button>
+      <button class="burger" type="button" id="menuBtn" aria-label="Open menu"><i></i><i></i></button>
+    </div>
+  </div>
+</header>
+
+<div class="ticker" aria-label="Latest news">
+  <div class="ticker-track" id="ticker"></div>
+</div>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="wrap hero-grid">
+      <div class="rv">
+        <p class="label">Season 01 · Winter 2026 · Edition of 40</p>
+        <h1 class="display">Light you wear, <em>weight</em> you feel — jewellery that moves with&nbsp;you</h1>
+        <div class="hero-meta">
+          <p>Hand-finished in recycled 18k gold and freshwater pearl. Each piece is made in our Lisbon atelier, numbered and hallmarked 750.</p>
+          <a class="btn solid" href="#catalogue">Shop</a>
+        </div>
+      </div>
+      <div class="rv">
+        <div class="stage">
+          <div class="stage-frame">
+            <svg class="arc t" viewBox="0 0 200 30" preserveAspectRatio="none" aria-hidden="true"><path d="M2 28 Q100 -6 198 28" fill="none" stroke="currentColor" stroke-width="2.4" vector-effect="non-scaling-stroke"/></svg>
+            <div class="stage-photo" id="stagePhoto" role="img" aria-label=""></div>
+            <svg class="arc b" viewBox="0 0 200 30" preserveAspectRatio="none" aria-hidden="true"><path d="M2 28 Q100 -6 198 28" fill="none" stroke="currentColor" stroke-width="2.4" vector-effect="non-scaling-stroke"/></svg>
+          </div>
+          <p class="vcap" id="stageCap"></p>
+        </div>
+        <div class="stage-ctrl">
+          <div><p class="label" id="stageNo"></p><p class="stage-name" id="stageName" style="margin:4px 0 0"></p></div>
+          <div class="pager">
+            <button type="button" id="stagePrev" aria-label="Previous piece">‹</button>
+            <span id="stageCount">01/04</span>
+            <button type="button" id="stageNext" aria-label="Next piece">›</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CATEGORIES -->
+  <section class="sec" id="catalogue">
+    <div class="wrap">
+      <div class="sec-head rv"><h2 class="display">Categories</h2><p class="label">Catalogue · 64 pieces</p></div>
+      <div class="cats-grid">
+        <div class="acc rv" id="acc"></div>
+        <div class="rv" style="min-width:0">
+          <div class="rail" id="catRail" aria-label="Pieces in this category"></div>
+          <div class="rail-foot">
+            <span class="label" id="catLabel"></span>
+            <div class="pager"><button type="button" data-rail="catRail" data-dir="-1" aria-label="Scroll back">‹</button><span id="catCount">1/1</span><button type="button" data-rail="catRail" data-dir="1" aria-label="Scroll forward">›</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PHILOSOPHY -->
+  <section class="sec" id="philosophy">
+    <div class="wrap philo">
+      <div class="rv">
+        <h2 class="display" style="font-size:clamp(40px,10vw,84px);margin-bottom:28px">Our philosophy</h2>
+        <div class="principle" id="principle" aria-live="polite"></div>
+        <div class="progress">
+          <span class="label" id="prCount" style="color:var(--ink)">1/8</span>
+          <div class="bar"><i id="prBar"></i></div>
+          <div class="pager"><button type="button" id="prPrev" aria-label="Previous principle">‹</button><button type="button" id="prNext" aria-label="Next principle">›</button></div>
+        </div>
+      </div>
+      <div class="philo-tiles rv" id="philoTiles"></div>
+    </div>
+  </section>
+
+  <!-- DESIGN FOCUS -->
+  <section class="sec" style="padding-block:0;border:0">
+    <div class="wrap">
+      <article class="focus rv">
+        <div class="focus-art" id="focusArt" role="img" aria-label="The Strata Cuff, a ribbed 18k gold bangle"></div>
+        <div class="focus-copy">
+          <p class="label">Design focus</p>
+          <h2 class="display">The Strata Cuff</h2>
+          <p style="margin:0;color:var(--mute);max-width:46ch">A study in proportion and quiet texture. Forty-two ribs are filed by hand so the cuff catches light in bands, and the opening is shaped to follow the wrist bone instead of sitting on it.</p>
+          <dl class="specs">
+            <dt>Metal</dt><dd>Recycled 18k yellow gold</dd>
+            <dt>Hallmark</dt><dd>750 · ÉL · 01/40</dd>
+            <dt>Weight</dt><dd>38.6 g</dd>
+            <dt>Width</dt><dd>24 mm</dd>
+            <dt>Bench time</dt><dd>46 hours</dd>
+          </dl>
+          <div style="display:flex;gap:18px;align-items:center;flex-wrap:wrap">
+            <span class="price">€2,980</span>
+            <button class="btn" type="button" data-open="strata-cuff">View piece</button>
+          </div>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- BESTSELLERS -->
+  <section class="sec" id="new-in" style="margin-top:64px">
+    <div class="wrap">
+      <div class="sec-head rv"><h2 class="display">Bestsellers edit</h2><a class="link" href="#catalogue">All pieces</a></div>
+      <div class="tabs" role="tablist" id="tabs">
+        <button class="tab" role="tab" aria-selected="true" data-mood="everyday">everyday glow</button>
+        <button class="tab" role="tab" aria-selected="false" data-mood="evening">evening mood</button>
+        <button class="tab" role="tab" aria-selected="false" data-mood="classic">modern classics</button>
+      </div>
+      <div class="rail rv" id="bestRail" role="tabpanel"></div>
+      <div class="rail-foot">
+        <span class="label">Swipe to browse</span>
+        <div class="pager"><button type="button" data-rail="bestRail" data-dir="-1" aria-label="Scroll back">‹</button><span id="bestCount">1/1</span><button type="button" data-rail="bestRail" data-dir="1" aria-label="Scroll forward">›</button></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- JOURNAL / NEWS -->
+  <section class="sec" id="journal">
+    <div class="wrap">
+      <div class="sec-head rv"><h2 class="display">Journal</h2><p class="label">News from the atelier</p></div>
+      <div class="chips" id="chips" role="group" aria-label="Filter journal"></div>
+      <div class="journal">
+        <div id="feature"></div>
+        <ul class="posts" id="posts"></ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- EDITIONS / NEWSLETTER -->
+  <section class="editions" id="editions">
+    <div class="wrap ed-grid">
+      <div class="rv">
+        <p class="label" style="color:var(--ink)">Editions</p>
+        <h2 class="display" style="margin:10px 0 18px">Be first to the next edition</h2>
+        <p style="margin:0;max-width:44ch">Each season we cast a small numbered run. Subscribers see it a week before it opens, along with the journal and atelier dates.</p>
+        <form class="form" id="news" novalidate>
+          <label class="sr" for="email">Email address</label>
+          <input id="email" type="email" placeholder="your@email.com" autocomplete="email" required>
+          <button class="btn solid" type="submit">Subscribe</button>
+        </form>
+        <p class="form-msg" id="newsMsg" role="status"></p>
+      </div>
+      <ul class="ed-list rv" aria-label="Edition calendar">
+        <li><span class="label" style="color:var(--ink)">01</span><span class="serif">The Balance Edit</span><span>Now · 40 pcs</span></li>
+        <li><span class="label" style="color:var(--ink)">02</span><span class="serif">Salt &amp; Pearl</span><span>Mar 2027 · 30 pcs</span></li>
+        <li><span class="label" style="color:var(--ink)">03</span><span class="serif">Night Garden</span><span>Jun 2027 · 25 pcs</span></li>
+        <li><span class="label" style="color:var(--ink)">04</span><span class="serif">Atelier Archive</span><span>Sep 2027 · 12 pcs</span></li>
+      </ul>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot">
+      <div><h4 class="label">Atelier</h4><p style="margin:0;font-size:13.5px;max-width:30ch">Rua das Flores 28, Lisbon<br>Tue–Sat, 11:00–19:00<br>Appointments for fittings</p></div>
+      <div><h4 class="label">Shop</h4><ul><li><a href="#catalogue">Earrings</a></li><li><a href="#catalogue">Necklaces</a></li><li><a href="#catalogue">Rings</a></li><li><a href="#catalogue">Bracelets</a></li></ul></div>
+      <div><h4 class="label">Care</h4><ul><li><a href="#journal">Ring sizing</a></li><li><a href="#journal">Pearl care</a></li><li><a href="#journal">Repairs</a></li></ul></div>
+      <div><h4 class="label">Follow</h4><ul><li><a href="#journal">Journal</a></li><li><a href="#editions">Newsletter</a></li></ul></div>
+    </div>
+    <div class="mark" aria-hidden="true">Élune</div>
+    <div class="legal"><span class="label">© 2026 Élune Atelier · Concept v1</span><span class="label">Prices in EUR incl. VAT</span></div>
+  </div>
+</footer>
+
+<dialog id="sheet" aria-label="Piece details"></dialog>
+<dialog id="menu" aria-label="Menu">
+  <div class="sheet-close"><button type="button" data-close>Close ✕</button></div>
+  <nav><a href="#catalogue">Catalogue</a><a href="#new-in">New in</a><a href="#philosophy">Philosophy</a><a href="#journal">Journal</a><a href="#editions">Editions</a></nav>
+</dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function(){
+document.documentElement.classList.add('js');
+
+/* ---------------- illustrations ---------------- */
+const M = m => m === 'silver' ? 'url(#silver)' : 'url(#gold)';
+function svg(inner, label){return `<svg viewBox="0 0 200 200" role="img" aria-label="${label||''}">${inner}</svg>`}
+function pearl(x,y,r){return `<circle cx="${x}" cy="${y}" r="${r}" fill="url(#pearl)"/>`}
+function chainPath(p0,p1,p2,n,rx,ry,sw,metal){
+  let s='';
+  for(let i=0;i<=n;i++){
+    const t=i/n, u=1-t;
+    const x=u*u*p0[0]+2*u*t*p1[0]+t*t*p2[0], y=u*u*p0[1]+2*u*t*p1[1]+t*t*p2[1];
+    const dx=2*u*(p1[0]-p0[0])+2*t*(p2[0]-p1[0]), dy=2*u*(p1[1]-p0[1])+2*t*(p2[1]-p1[1]);
+    const a=Math.atan2(dy,dx)*180/Math.PI;
+    s+=`<ellipse cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" rx="${rx}" ry="${i%2?ry*.45:ry}" transform="rotate(${a.toFixed(1)} ${x.toFixed(1)} ${y.toFixed(1)})" fill="none" stroke="${M(metal)}" stroke-width="${sw}"/>`;
+  }
+  return s;
+}
+const ART = {
+  drop:(m)=>`<path d="M100 22 q-20 0 -20 20" fill="none" stroke="${M(m)}" stroke-width="3"/>
+    <g transform="translate(100 70)">${[0,1,2,3].map(i=>`<ellipse cx="${(i-1.5)*9}" cy="${Math.abs(i-1.5)*4}" rx="9" ry="22" transform="rotate(${(i-1.5)*18})" fill="${M(m)}" stroke="#7a5a1c" stroke-width=".6"/>`).join('')}</g>
+    <line x1="100" y1="94" x2="100" y2="112" stroke="${M(m)}" stroke-width="2"/>
+    <path d="M100 108 C80 132 80 172 100 172 C120 172 120 132 100 108Z" fill="url(#pearl)"/>`,
+  hoop:(m)=>`<ellipse cx="100" cy="104" rx="46" ry="62" fill="none" stroke="${M(m)}" stroke-width="13"/><ellipse cx="100" cy="104" rx="46" ry="62" fill="none" stroke="rgba(0,0,0,.15)" stroke-width="13" stroke-dasharray="1.2 5"/>`,
+  necklace:(m)=>chainPath([28,34],[100,250],[172,34],34,6,3.6,1.8,m)+`<line x1="100" y1="142" x2="100" y2="152" stroke="${M(m)}" stroke-width="2"/>`+pearl(100,164,13),
+  bracelet:(m)=>chainPath([36,60],[100,230],[164,60],22,9,5.5,2.6,m)+chainPath([36,60],[100,-20],[164,60],22,9,5.5,2.6,m==='gold'?'silver':'gold')+`<rect x="88" y="138" width="22" height="30" fill="url(#gold)"/><circle cx="118" cy="146" r="10" fill="url(#gold)"/>`,
+  collar:(m)=>chainPath([20,40],[100,230],[180,40],14,15,10,6,m),
+  ring:(m)=>`<ellipse cx="100" cy="122" rx="54" ry="54" fill="none" stroke="${M(m)}" stroke-width="12"/><ellipse cx="100" cy="122" rx="60" ry="60" fill="none" stroke="rgba(255,255,255,.35)" stroke-width="1"/>`+pearl(100,62,20),
+  signet:(m)=>`<ellipse cx="100" cy="124" rx="52" ry="52" fill="none" stroke="${M(m)}" stroke-width="13"/><rect x="66" y="52" width="68" height="40" rx="10" fill="${M(m)}" stroke="#7a5a1c" stroke-width=".6"/><text x="100" y="80" text-anchor="middle" font-family="Instrument Serif,serif" font-size="22" fill="#7a5a1c">É</text>`,
+  cuff:(m)=>`<ellipse cx="100" cy="104" rx="72" ry="44" fill="none" stroke="${M(m)}" stroke-width="32"/><ellipse cx="100" cy="104" rx="72" ry="44" fill="none" stroke="rgba(70,45,5,.28)" stroke-width="32" stroke-dasharray="1.6 4.4"/><path d="M40 70 L52 86 M160 70 L148 86" stroke="url(#silver)" stroke-width="4"/>`,
+  studs:(m)=>[[70,90],[130,110]].map(([x,y])=>[0,72,144,216,288].map(a=>pearl(x+12*Math.cos(a*Math.PI/180),y+12*Math.sin(a*Math.PI/180),8)).join('')+`<circle cx="${x}" cy="${y}" r="6" fill="${M(m)}"/>`).join(''),
+  brooch:(m)=>{let s='',o=[62,160];for(let i=0;i<12;i++){const a=(-108+i*8.5)*Math.PI/180,L=70+((i*37)%5)*9;const x=o[0]+L*Math.cos(a),y=o[1]+L*Math.sin(a);s+=`<line x1="${o[0]}" y1="${o[1]}" x2="${x.toFixed(1)}" y2="${y.toFixed(1)}" stroke="url(#silver)" stroke-width="1.6"/>`+pearl(x.toFixed(1),y.toFixed(1),5+(i%3));}
+    return s+chainPath([62,160],[110,150],[160,170],9,4,2.4,1.4,'silver')+`<path d="M150 172 C138 188 140 198 152 198 C164 198 166 188 152 172Z" fill="url(#glass)"/><circle cx="62" cy="160" r="9" fill="${M(m)}"/>`},
+  cuffear:(m)=>`<path d="M70 50 C150 30 160 150 92 160" fill="none" stroke="${M(m)}" stroke-width="12" stroke-linecap="round"/><path d="M84 70 C130 64 136 132 98 140" fill="none" stroke="${M(m)}" stroke-width="7" stroke-linecap="round"/>`+pearl(92,160,9)
+};
+const draw=(p,label)=>svg(ART[p.art](p.metal||'gold'),label||p.name);
+
+/* ---------------- data ---------------- */
+const TINTS={stone:'#efede8',sage:'#e3e8df',blush:'#f1e6e1',slate:'#e2e5ea',sand:'#efe6d6',mist:'#e8e9f2'};
+const PIECES=[
+ {id:'halo-drop',name:'Halo pearl drop earrings',col:'Balance Edit',cat:'earrings',art:'drop',price:390,tint:'stone',mood:['everyday','evening'],w:'6.1 g',spec:'18k gold vermeil, baroque freshwater pearl',tag:'New'},
+ {id:'tide-cuff',name:'Tide ear cuff',col:'Salt line',cat:'earrings',art:'cuffear',price:445,tint:'slate',mood:['everyday'],w:'3.4 g',spec:'Recycled 18k gold, seed pearl'},
+ {id:'orbit-hoops',name:'Orbit ribbed hoops',col:'Essentials',cat:'earrings',art:'hoop',price:320,tint:'sand',mood:['everyday','classic'],w:'5.8 g',spec:'Recycled 14k gold, hollow form'},
+ {id:'bloom-studs',name:'Bloom pearl studs',col:'Night Garden',cat:'earrings',art:'studs',price:280,tint:'blush',mood:['evening'],w:'2.2 g',spec:'Akoya pearls, 18k gold posts',tag:'Few left'},
+ {id:'aurelia-collar',name:'Aurelia collar',col:'First edition',cat:'necklaces',art:'collar',price:1450,tint:'sage',mood:['evening','classic'],w:'54 g',spec:'Recycled 18k gold, hand-linked'},
+ {id:'seed-pendant',name:'Seed pearl pendant',col:'Essentials',cat:'necklaces',art:'necklace',price:550,tint:'stone',mood:['everyday'],w:'4.9 g',spec:'18k gold trace chain, 42 cm + 3 cm'},
+ {id:'silver-strand',name:'Moonstrand chain',col:'Salt line',cat:'necklaces',art:'necklace',metal:'silver',price:610,tint:'mist',mood:['everyday','classic'],w:'7.2 g',spec:'Recycled sterling, 18k pearl cap'},
+ {id:'balance-bracelet',name:'Balance two-tone bracelet',col:'Balance Edit',cat:'bracelets',art:'bracelet',metal:'silver',price:1450,tint:'stone',mood:['classic'],w:'21 g',spec:'Sterling and 18k yellow gold tags',tag:'Bestseller'},
+ {id:'strata-cuff',name:'Strata cuff',col:'Design focus',cat:'bracelets',art:'cuff',price:2980,tint:'sand',mood:['evening','classic'],w:'38.6 g',spec:'Recycled 18k gold, 42 hand-filed ribs'},
+ {id:'cable-bracelet',name:'Sculpted cable bracelet',col:'Essentials',cat:'bracelets',art:'bracelet',price:810,tint:'blush',mood:['everyday'],w:'14 g',spec:'Recycled 18k gold, hook clasp'},
+ {id:'pearl-ring',name:'Halo pearl ring',col:'Balance Edit',cat:'rings',art:'ring',price:690,tint:'slate',mood:['evening'],w:'5.4 g',spec:'18k gold band, 9 mm pearl',sized:true},
+ {id:'lune-signet',name:'Lune signet',col:'Essentials',cat:'rings',art:'signet',price:570,tint:'sage',mood:['everyday','classic'],w:'8.8 g',spec:'Recycled 18k gold, engravable',sized:true,tag:'Bestseller'},
+ {id:'silver-band',name:'Strata band',col:'Salt line',cat:'rings',art:'ring',metal:'silver',price:340,tint:'mist',mood:['everyday'],w:'6.0 g',spec:'Sterling, river pearl',sized:true},
+ {id:'spray-brooch',name:'Spray brooch',col:'Season 01',cat:'brooches',art:'brooch',price:765,tint:'stone',mood:['evening'],w:'12 g',spec:'Sterling stems, pearls, glass drop',tag:'Edition'},
+ {id:'pearl-brooch',name:'Vermeil pearl brooch',col:'Atelier archive',cat:'brooches',art:'drop',price:570,tint:'sand',mood:['classic'],w:'7.5 g',spec:'Gold vermeil, baroque pearl'}
+];
+const CATS=[
+ {k:'earrings',d:'Sculptural silhouettes in gold and pearl, from everyday studs to statement drops shaped to frame the face.'},
+ {k:'necklaces',d:'Fine chains and hand-linked collars. Every length includes a 3 cm extender so it sits where you want it.'},
+ {k:'bracelets',d:'Cuffs filed by hand and chains that move with the wrist. Two-tone pieces mix sterling with 18k gold.'},
+ {k:'rings',d:'Signets, bands and pearl rings, made to order in EU sizes 48 to 60. Engraving included.'},
+ {k:'brooches',d:'Small sculptures for a lapel, a collar or a knit. Most are numbered seasonal editions.'}
+];
+const HERO=[
+ {id:'spray-brooch',bg:'radial-gradient(120% 90% at 70% 85%,#8a5c45 0%,#4c3127 38%,#1c1513 70%,#0f0d0d 100%)',cap:'A limited seasonal piece designed as a study in balance and movement'},
+ {id:'halo-drop',bg:'radial-gradient(120% 90% at 30% 80%,#7d8794 0%,#4a525d 40%,#22262c 100%)',cap:'Baroque pearls, each one matched by hand to its pair'},
+ {id:'aurelia-collar',bg:'radial-gradient(120% 90% at 60% 90%,#9fae95 0%,#5d6b56 45%,#283026 100%)',cap:'Hand-linked over nine days. First edition of twelve'},
+ {id:'lune-signet',bg:'radial-gradient(120% 90% at 40% 85%,#c49a7c 0%,#7a5442 45%,#2c1e19 100%)',cap:'Engraved by hand with an initial of your choice'}
+];
+const PRINCIPLES=[
+ ['We design for the body, not the display case.','Each form follows the natural line of the ear, neck or wrist. If a piece only looks right on a bust, we start again.'],
+ ['Proportion before ornament.','We decide weight, width and balance first. Detail is added only where it changes how the piece catches light.'],
+ ['Gold that has already been gold.','All our 18k is recycled and refined in Portugal. The hallmark 750 means 75% pure gold, tested at the assay office.'],
+ ['Pearls are chosen, never graded by machine.','We match every baroque pearl by eye for lustre and shape, which is why no two pairs are the same.'],
+ ['Small runs, numbered.','Seasonal pieces are made in editions of 12 to 40. The number is stamped inside next to the hallmark.'],
+ ['Made to be repaired.','Clasps, posts and jump rings are standard sizes. We resize and re-polish any Élune piece for life.'],
+ ['One bench, start to finish.','The goldsmith who begins a piece completes it. You will find their initials on the certificate.'],
+ ['Quiet presence.','Nothing on a piece is there to be noticed first. It should feel personal, and only then be seen.']
+];
+const POSTS=[
+ {id:'balance-edit',cat:'Collection',date:'2026-11-12',title:'Season 01: the Balance Edit opens in the atelier',ex:'Forty numbered pieces built around one idea: weight that moves. Here is how the spray brooch came together over fourteen drafts.',art:'brooch',tint:'stone',
+  body:['The Balance Edit began with a single wire stem bent under the weight of a pearl. We wanted a collection where every piece is slightly off-centre and still sits perfectly still when worn.','The spray brooch went through fourteen drafts. The first versions used gold stems, which looked heavy against wool. Sterling stems with an 18k base let the pearls read as the main event.','The edit opens to subscribers on 12 November and to everyone a week later. Each piece is stamped 01/40 to 40/40 inside, next to the 750 hallmark.']},
+ {id:'recycled-gold',cat:'Materials',date:'2026-11-04',title:'Why we only cast in recycled 18k gold',ex:'Where our metal comes from, what the 750 stamp guarantees, and why 18k wears better than 22k.',art:'cuff',tint:'sand',
+  body:['Every gram of gold we cast has been gold before: old jewellery, dental alloy and electronics refined back to 24k in Portugal, then alloyed by us to 18k.','The 750 stamp means 750 parts per thousand are pure gold. The remaining 25% is silver and copper, which gives 18k its warmth and makes it hard enough for daily wear. 22k is richer in colour but bends and scratches easily.','Recycled gold is chemically identical to newly mined gold. It simply skips the mine.']},
+ {id:'open-days',cat:'Events',date:'2026-10-28',title:'Atelier open days, 28–30 November',ex:'See the benches, try the full Balance Edit, and have rings sized by the goldsmiths who make them.',art:'ring',tint:'slate',
+  body:['From 28 to 30 November the Rua das Flores atelier is open to everyone, 11:00 to 19:00. No appointment is needed.','You can try every piece from the Balance Edit, watch a collar being hand-linked, and have your ring size measured on our steel mandrel.','Pieces ordered during the open days are engraved free of charge.']},
+ {id:'pearl-care',cat:'Care',date:'2026-10-15',title:'How to store pearls so they keep their lustre',ex:'Pearls are organic and soft. Last on, first off, and never in a sealed bag.',art:'studs',tint:'blush',
+  body:['Put pearls on last, after perfume and hairspray, and take them off first. Acids and alcohol dull the nacre over time.','Wipe them with a soft dry cloth after wearing. Store them flat in a fabric pouch, away from harder stones that can scratch them.','Avoid sealed plastic bags. Pearls need a little humidity, and a completely dry bag can make the nacre crack.']},
+ {id:'ring-sizing',cat:'Guide',date:'2026-10-02',title:'Ring sizing, explained in millimetres',ex:'EU sizes are simply the inner circumference in millimetres. A quick chart and how to measure at home.',art:'signet',tint:'sage',table:true,
+  body:['European ring sizes are the inner circumference of the ring in millimetres. A size 52 ring measures 52 mm around the inside.','To measure at home, wrap a strip of paper around the base of your finger at the end of the day, when fingers are slightly larger. Mark where it overlaps and measure the length with a ruler.','Wide bands like the Lune signet fit tighter, so go up half a size for anything wider than 6 mm.']},
+ {id:'bench',cat:'Atelier',date:'2026-09-18',title:'Meet the hands: four goldsmiths, one bench each',ex:'Inês, Tomás, Mariana and Rui on the tools they would never give up.',art:'hoop',tint:'mist',
+  body:['Our four goldsmiths each work at their own bench, and each piece stays with one person from casting to final polish.','Inês trained in watch repair and does most of our fine chain work. Tomás handles the cuffs and keeps a box of files older than he is.','Mariana matches every pearl in the studio. Rui sets stones and engraves signets by hand.']}
+];
+const RING=[[48,15.3],[50,15.9],[52,16.6],[54,17.2],[56,17.8],[58,18.5],[60,19.1]];
+
+const byId=id=>PIECES.find(p=>p.id===id);
+const eur=n=>'€'+n.toLocaleString('en-US');
+const fmtDate=s=>{const d=new Date(s+'T12:00:00');return {day:String(d.getDate()).padStart(2,'0'),mon:d.toLocaleString('en-GB',{month:'short'}),full:d.toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'})}};
+const $=s=>document.querySelector(s);
+
+/* ---------------- saved (per-viewer convenience) ---------------- */
+let saved=[];
+try{saved=JSON.parse(localStorage.getItem('elune-saved')||'[]')}catch(e){}
+const storeSaved=()=>{try{localStorage.setItem('elune-saved',JSON.stringify(saved))}catch(e){};$('#savedCount').textContent=saved.length};
+storeSaved();
+function toast(t){const el=$('#toast');el.textContent=t;el.classList.add('on');clearTimeout(toast.t);toast.t=setTimeout(()=>el.classList.remove('on'),2200)}
+
+/* ---------------- ticker ---------------- */
+const news=['Season 01 · The Balance Edit is live','Atelier open days · 28–30 November','Free engraving on all signets','Journal · Ring sizing in millimetres','Complimentary resizing for life'];
+$('#ticker').innerHTML=[...news,...news].map(n=>`<span>${n}</span>`).join('');
+
+/* ---------------- hero stage ---------------- */
+let hi=0;
+function renderStage(){
+  const h=HERO[hi],p=byId(h.id),ph=$('#stagePhoto');
+  ph.classList.add('swap');
+  setTimeout(()=>{
+    ph.style.background=h.bg;
+    ph.innerHTML=draw(p);
+    ph.setAttribute('aria-label',p.name);
+    $('#stageCap').textContent=h.cap;
+    $('#stageName').textContent=p.name;
+    $('#stageNo').textContent=p.col+' · '+eur(p.price);
+    $('#stageCount').textContent=String(hi+1).padStart(2,'0')+'/'+String(HERO.length).padStart(2,'0');
+    requestAnimationFrame(()=>ph.classList.remove('swap'));
+  },ph.innerHTML?260:0);
+}
+$('#stagePrev').onclick=()=>{hi=(hi-1+HERO.length)%HERO.length;renderStage()};
+$('#stageNext').onclick=()=>{hi=(hi+1)%HERO.length;renderStage()};
+$('#stagePhoto').onclick=()=>openPiece(HERO[hi].id);
+$('#stagePhoto').style.cursor='pointer';
+renderStage();
+
+/* ---------------- cards & rails ---------------- */
+const card=p=>`<button class="card" type="button" data-open="${p.id}">
+  <div class="ph" style="background:${TINTS[p.tint]}">${p.tag?`<span class="tag">${p.tag}</span>`:''}${draw(p)}</div>
+  <div class="meta"><span class="label">${p.col}</span><span class="nm">${p.name}</span><span class="price">${eur(p.price)}</span></div></button>`;
+function railCounter(rail,out){
+  const upd=()=>{const c=rail.firstElementChild;if(!c)return;const w=c.getBoundingClientRect().width+14;const vis=Math.max(1,Math.round(rail.clientWidth/w));const total=rail.children.length;const max=Math.max(1,total-vis+1);const i=Math.min(max,Math.round(rail.scrollLeft/w)+1);out.textContent=i+'/'+max};
+  rail.addEventListener('scroll',()=>requestAnimationFrame(upd),{passive:true});
+  window.addEventListener('resize',upd);
+  return upd;
+}
+document.querySelectorAll('[data-rail]').forEach(b=>b.onclick=()=>{const r=document.getElementById(b.dataset.rail);const c=r.firstElementChild;r.scrollBy({left:(c?c.getBoundingClientRect().width+14:280)*+b.dataset.dir,behavior:'smooth'})});
+
+/* categories */
+let cat='earrings';
+const catRail=$('#catRail'),updCat=railCounter(catRail,$('#catCount'));
+function renderAcc(){
+  $('#acc').innerHTML=CATS.map(c=>{const n=PIECES.filter(p=>p.cat===c.k).length;const open=c.k===cat;
+   return `<div class="acc-item${open?' open':''}"><button class="acc-btn" type="button" aria-expanded="${open}" data-cat="${c.k}"><span class="sym">${open?'–':'+'}</span><span class="t">${c.k}</span><span class="n">${String(n).padStart(2,'0')} pieces</span></button>
+   <div class="acc-panel"><div><p>${c.d}</p><a class="link" href="#catalogue" data-cat-link="${c.k}">View all ${c.k}</a></div></div></div>`}).join('');
+}
+function renderCat(){
+  const list=PIECES.filter(p=>p.cat===cat);
+  catRail.innerHTML=list.map(card).join('');catRail.scrollLeft=0;
+  $('#catLabel').textContent=cat+' · '+list.length+' shown';
+  updCat();
+}
+$('#acc').addEventListener('click',e=>{const b=e.target.closest('[data-cat]');if(!b)return;cat=b.dataset.cat;renderAcc();renderCat()});
+renderAcc();renderCat();
+
+/* bestsellers */
+let mood='everyday';
+const bestRail=$('#bestRail'),updBest=railCounter(bestRail,$('#bestCount'));
+function renderBest(){bestRail.innerHTML=PIECES.filter(p=>p.mood.includes(mood)).map(card).join('');bestRail.scrollLeft=0;updBest()}
+$('#tabs').addEventListener('click',e=>{const t=e.target.closest('.tab');if(!t)return;mood=t.dataset.mood;document.querySelectorAll('.tab').forEach(x=>x.setAttribute('aria-selected',x===t));renderBest()});
+renderBest();
+
+/* ---------------- philosophy ---------------- */
+let pi=0;
+function renderPr(){const[h,b]=PRINCIPLES[pi];$('#principle').innerHTML=`<p class="serif">${h}</p><p>${b}</p>`;$('#prCount').textContent=(pi+1)+'/'+PRINCIPLES.length;$('#prBar').style.width=((pi+1)/PRINCIPLES.length*100)+'%'}
+$('#prPrev').onclick=()=>{pi=(pi-1+PRINCIPLES.length)%PRINCIPLES.length;renderPr()};
+$('#prNext').onclick=()=>{pi=(pi+1)%PRINCIPLES.length;renderPr()};
+renderPr();
+$('#philoTiles').innerHTML=[['aurelia-collar','The Aurelia collar · first edition'],['halo-drop','Halo drops · baroque pearl']].map(([id,c])=>{const p=byId(id);return `<button class="tile" type="button" data-open="${id}" style="background:${TINTS[p.tint]}">${draw(p)}<span class="vcap">${c}</span></button>`}).join('');
+$('#focusArt').innerHTML=draw(byId('strata-cuff'));
+
+/* ---------------- journal ---------------- */
+const CATS_J=['All',...new Set(POSTS.map(p=>p.cat))];
+let jf='All';
+$('#chips').innerHTML=CATS_J.map(c=>`<button class="chip" type="button" aria-pressed="${c==='All'}" data-j="${c}">${c}</button>`).join('');
+function renderJournal(){
+  const list=POSTS.filter(p=>jf==='All'||p.cat===jf);
+  const [f,...rest]=list;
+  $('#feature').innerHTML=f?`<button class="feature" type="button" data-post="${f.id}"><div class="ph" style="background:${TINTS[f.tint]}">${svg(ART[f.art]('gold'),f.title)}</div>
+    <span class="label">${f.cat} · ${fmtDate(f.date).full}</span><h3>${f.title}</h3><p>${f.ex}</p><span class="link" style="justify-self:start">Read the story</span></button>`:'';
+  $('#posts').innerHTML=rest.length?rest.map(p=>{const d=fmtDate(p.date);return `<li class="post"><button type="button" data-post="${p.id}"><span class="d"><b>${d.day}</b>${d.mon}</span><span><span class="label">${p.cat}</span><p class="h">${p.title}</p></span><span class="arr" aria-hidden="true">→</span></button></li>`}).join('')
+    :`<li class="empty">${f?'That is the only story in '+jf.toLowerCase()+' so far.':'No stories yet.'}</li>`;
+}
+$('#chips').addEventListener('click',e=>{const c=e.target.closest('[data-j]');if(!c)return;jf=c.dataset.j;document.querySelectorAll('.chip').forEach(x=>x.setAttribute('aria-pressed',x===c));renderJournal()});
+renderJournal();
+
+/* ---------------- sheets ---------------- */
+const sheet=$('#sheet');
+function openSheet(html,label){sheet.innerHTML=`<div class="sheet-close"><button type="button" data-close>Close ✕</button></div>`+html;sheet.setAttribute('aria-label',label);sheet.showModal();sheet.scrollTop=0}
+function openPiece(id){
+  const p=byId(id);if(!p)return;
+  const isSaved=saved.includes(id);
+  openSheet(`<div class="sheet-art" style="background:${TINTS[p.tint]}">${draw(p)}</div>
+   <div class="sheet-body"><span class="label">${p.col} · ${p.cat}</span><h3>${p.name}</h3>
+   <span class="price">${eur(p.price)}</span><p>${p.spec}. Weight ${p.w}. Hallmarked 750 and numbered inside.</p>
+   ${p.sized?`<div><p class="label" style="margin-bottom:8px">EU size</p><div class="sizes" id="sizes">${RING.map(([s])=>`<button class="size" type="button" aria-pressed="${s===54}" data-size="${s}">${s}</button>`).join('')}</div></div>`:''}
+   <div class="sheet-actions"><button class="btn solid" type="button" data-enquire="${p.id}">Reserve a fitting</button><button class="btn" type="button" data-save="${p.id}">${isSaved?'Saved ✓':'Save piece'}</button></div>
+   <p class="label">Free delivery in the EU · 30-day returns · Lifetime resizing</p></div>`,p.name);
+}
+function openPost(id){
+  const p=POSTS.find(x=>x.id===id);
+  openSheet(`<div class="sheet-art" style="background:${TINTS[p.tint]};aspect-ratio:16/10">${svg(ART[p.art]('gold'),p.title)}</div>
+   <div class="sheet-body article"><span class="label">${p.cat} · ${fmtDate(p.date).full}</span><h3>${p.title}</h3>
+   <div class="body">${p.body.map(t=>`<p>${t}</p>`).join('')}</div>
+   ${p.table?`<div class="tbl"><table><thead><tr><th>EU size</th><th>Circumference</th><th>Inner diameter</th></tr></thead><tbody>${RING.map(([s,d])=>`<tr><td>${s}</td><td>${s} mm</td><td>${d.toFixed(1)} mm</td></tr>`).join('')}</tbody></table></div>`:''}
+   <button class="btn" type="button" data-close style="justify-self:start">Back to journal</button></div>`,p.title);
+}
+document.addEventListener('click',e=>{
+  const o=e.target.closest('[data-open]');if(o){openPiece(o.dataset.open);return}
+  const po=e.target.closest('[data-post]');if(po){openPost(po.dataset.post);return}
+  if(e.target.closest('[data-close]')){e.target.closest('dialog').close();return}
+  const sz=e.target.closest('[data-size]');if(sz){sz.parentElement.querySelectorAll('.size').forEach(x=>x.setAttribute('aria-pressed',x===sz));return}
+  const sv=e.target.closest('[data-save]');if(sv){const id=sv.dataset.save;const i=saved.indexOf(id);if(i<0){saved.push(id);sv.textContent='Saved ✓';toast('Saved to your list')}else{saved.splice(i,1);sv.textContent='Save piece';toast('Removed from your list')}storeSaved();return}
+  const en=e.target.closest('[data-enquire]');if(en){const s=sheet.querySelector('.size[aria-pressed="true"]');sheet.close();toast('Fitting request noted'+(s?' · size '+s.dataset.size:'')+'. This is a demo, so nothing was sent.');return}
+});
+[sheet,$('#menu')].forEach(d=>d.addEventListener('click',e=>{if(e.target===d)d.close()}));
+$('#menuBtn').onclick=()=>$('#menu').showModal();
+$('#menu').addEventListener('click',e=>{if(e.target.closest('nav a'))$('#menu').close()});
+$('#savedBtn').onclick=()=>{
+  if(!saved.length){toast('Nothing saved yet. Open a piece and tap Save.');return}
+  openSheet(`<div class="sheet-body"><span class="label">Your list</span><h3>Saved pieces</h3><div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">${saved.map(byId).filter(Boolean).map(card).join('')}</div></div>`,'Saved pieces');
+};
+
+/* ---------------- newsletter ---------------- */
+$('#news').addEventListener('submit',e=>{
+  e.preventDefault();const v=$('#email').value.trim(),m=$('#newsMsg');
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v)){m.textContent='Enter an email address like name@example.com.';return}
+  m.textContent='Thank you. You are on the list for Edition 02 (demo, nothing was sent).';$('#email').value='';
+});
+
+/* ---------------- reveal on scroll ---------------- */
+if(!matchMedia('(prefers-reduced-motion: reduce)').matches && 'IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>es.forEach(x=>{if(x.isIntersecting){x.target.classList.remove('pre');io.unobserve(x.target)}}),{rootMargin:'0px 0px -8% 0px'});
+  document.querySelectorAll('.rv').forEach(el=>{const r=el.getBoundingClientRect();if(r.top>innerHeight){el.classList.add('pre');io.observe(el)}});
+}
+})();
+</script>
+</body>
+</html>
